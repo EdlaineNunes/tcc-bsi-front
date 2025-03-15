@@ -9,8 +9,8 @@ const UserList = () => {
 
 
   useEffect(() => {
-    const token = localStorage.getItem('data'); // Obtém o token do localStorage
-   
+    // const token = localStorage.getItem('data'); // Obtém o token do localStorage
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIwNjIwODEsImV4cCI6MTc0MjA5ODA4MX0.jSehxEdo9SR8uTxmZhMG4tQc_kPf1wIaiS7QODHWMIY'
 
     if (!token) {
       setError('Token não encontrado. Faça login novamente.');
@@ -22,29 +22,52 @@ const UserList = () => {
 
     console.log("token recuperado ---> ", token)
 
-    axios.get('http://localhost:8080/users', {
+    axios.get('http://localhost:8080/users/', {
       headers: {
         "Authorization": `Bearer ${token}`
       }
     })
-      .then((response) => { console.log("usuarios achados", response); setUsers(response.data).setLoading(false) })
-      .catch((error) => console.error(error));
+    .then(response => {
+      setUsers(response.data);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error("Erro ao buscar usuários:", error);
+      setError("Erro ao carregar usuários.");
+      setLoading(false);
+    });
   }, []);
 
-  if (loading) {
-    return <div>Carregando usuários...</div>; // Exibe uma mensagem enquanto os usuários são carregados
-  }
+  if (loading) return <div>Carregando usuários...</div>;
+  if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
     <div>
-      <h2>Usuários</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.email} - {user.role}
-          </li>
-        ))}
-      </ul>
+      <h2>Lista de Usuários</h2>
+      <table border="1" width="100%" cellPadding="10">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <th>Permissão</th>
+            <th>Ativo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.username}</td>
+              <td>{user.cpf}</td>
+              <td>{user.email}</td>
+              <td>{user.permissionLevel}</td>
+              <td>{user.active ? "✅ Sim" : "❌ Não"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
