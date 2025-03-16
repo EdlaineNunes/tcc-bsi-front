@@ -27,7 +27,10 @@ export const AuthProvider = ({ children }) => {
             .get('http://localhost:8080/auth/login', {
               headers: { Authorization: `Bearer ${token}` }
             })
-            .then(response => setUser(response.data)).setLoading(false)
+            .then(response => {
+              setUser(response.data);
+              setLoading(false);
+            })
             .catch(() => logout());
         }
       } catch (error) {
@@ -52,7 +55,8 @@ export const AuthProvider = ({ children }) => {
         })
         .then(response => {
           setUser(response.data);
-          navigate('/usuarios'); // ✅ Garante navegação segura
+          setLoading(false); // Assegura que o carregamento terminou
+          navigate('/usuarios'); // Redireciona após login bem-sucedido
         })
         .catch(() => logout());
     }
@@ -61,6 +65,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem('data');
     setUser(null);
+    setLoading(false);
     navigate('/login'); // ✅ Agora funciona corretamente
   };
 

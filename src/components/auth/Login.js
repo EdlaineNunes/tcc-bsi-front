@@ -23,7 +23,7 @@ const Login = () => {
       alert('sucesso.');
       console.log("iniciando chamada get usuarios. token -> ", response.data)
 
-      navigate('/usuarios'); // Redireciona para o painel principal
+      navigate('/menu'); // Redireciona para o painel principal
     } catch (error) {
       console.error('Erro no login:', error);
       alert('Login falhou. Verifique suas credenciais.');
