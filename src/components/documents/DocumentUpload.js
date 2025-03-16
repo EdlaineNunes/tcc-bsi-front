@@ -21,11 +21,18 @@ const DocumentUpload = () => {
     const formData = new FormData();
     formData.append("file", file);
 
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxNDY4OTEsImV4cCI6MTc0MjE4Mjg5MX0.G69xiezmUs4AB78tYZNdZo5Nm-BwZWuEfB9On6ozvVs'
+
+
     try {
-      await axios.post("http://localhost:8080/api/documents/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      await axios.post(`http://localhost:8080/files/download/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+        },
       });
-      navigate('/documents');
+      alert("deu bom o download")
+      // navigate('/documents');
     } catch (error) {
       console.error("Erro ao enviar documento:", error);
     }
