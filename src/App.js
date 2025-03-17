@@ -48,6 +48,7 @@ import DocumentsList from './components/documents/DocumentList';
 import DocumentsListForMe from './components/documents/DocumentListForMe';
 import Menu from './components/Menu';
 import DocumentUpload from './components/documents/DocumentUpload';
+import DocumentView from './components/documents/DocumentView';
 
 // function App() {
 //   return (
@@ -82,6 +83,7 @@ function App() {
         <Route path='/documents/listAll' element={<DocumentsList />} />
         <Route path='/documents/listAll/user' element={<DocumentsListForMe />} />
         <Route path='/documents/upload' element={<DocumentUpload />} />
+        <Route path='/documents/view/:id' element={<DocumentView />} />
 
 
 
