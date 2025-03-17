@@ -45,7 +45,9 @@ import UsersList from './components/users/UserList';
 import UserEdit from './components/users/UserEdit';
 import UserCreate from './components/users/UserCreate';
 import DocumentsList from './components/documents/DocumentList';
+import DocumentsListForMe from './components/documents/DocumentListForMe';
 import Menu from './components/Menu';
+import DocumentUpload from './components/documents/DocumentUpload';
 
 // function App() {
 //   return (
@@ -78,6 +80,8 @@ function App() {
         <Route path='/users/create' element={<UserCreate />} />
         
         <Route path='/documents/listAll' element={<DocumentsList />} />
+        <Route path='/documents/listAll/user' element={<DocumentsListForMe />} />
+        <Route path='/documents/upload' element={<DocumentUpload />} />
 
 
 

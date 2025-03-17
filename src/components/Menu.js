@@ -13,6 +13,7 @@ const Menu = () => {
         <li><Link to="/users/create">Usuários - Registrar </Link></li>
         <li><Link to="/documents">Documentos</Link></li>
         <li><Link to="/documents/listAll">Documentos - Listar todos</Link></li>
+        <li><Link to="/documents/listAll/user">Documentos - Listar todos do usuário</Link></li>
         {/* <li><LogoutButton /></li> */}
       </ul>
     </nav>

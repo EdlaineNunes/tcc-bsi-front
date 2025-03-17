@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const DocumentUpload = () => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxNDY4OTEsImV4cCI6MTc0MjE4Mjg5MX0.G69xiezmUs4AB78tYZNdZo5Nm-BwZWuEfB9On6ozvVs'
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -12,29 +13,28 @@ const DocumentUpload = () => {
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    
+
     if (!file) {
-      alert("Selecione um arquivo para fazer o upload.");
+      alert('Selecione um arquivo para fazer o upload.');
       return;
     }
 
     const formData = new FormData();
-    formData.append("file", file);
-
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxNDY4OTEsImV4cCI6MTc0MjE4Mjg5MX0.G69xiezmUs4AB78tYZNdZo5Nm-BwZWuEfB9On6ozvVs'
-
+    formData.append('file', file);
 
     try {
-      await axios.post(`http://localhost:8080/files/download/${id}`, formData, {
+      await axios.post('http://localhost:8080/files/upload', formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
         },
       });
-      alert("deu bom o download")
-      // navigate('/documents');
+
+      alert('Upload realizado com sucesso!');
+      navigate('/documents/listAll'); // Redireciona para a lista de documentos
     } catch (error) {
-      console.error("Erro ao enviar documento:", error);
+      console.error('Erro ao enviar documento:', error);
+      alert('Erro ao enviar o documento.');
     }
   };
 
@@ -45,6 +45,7 @@ const DocumentUpload = () => {
         <input type="file" onChange={handleFileChange} />
         <button type="submit">Enviar</button>
       </form>
+      <button onClick={() => navigate('/documents')}>Voltar</button>
     </div>
   );
 };

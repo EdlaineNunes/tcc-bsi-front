@@ -4,13 +4,13 @@ import axios from 'axios';
 
 const DocumentsList = () => {
   const [documents, setDocuments] = useState([]);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxNDY4OTEsImV4cCI6MTc0MjE4Mjg5MX0.G69xiezmUs4AB78tYZNdZo5Nm-BwZWuEfB9On6ozvVs'
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NDIxNzUyMTEsImV4cCI6MTc0MjIxMTIxMX0.rjp_rK_r5uLDgHV3_vIJF5dcgrudgYl25GT8PO1nBV8'
 
   useEffect(() => {
     
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/files/all-files', {
+        const response = await axios.get('http://localhost:8080/files/my-files', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -76,8 +76,8 @@ const DocumentsList = () => {
         </tbody>
       </table>
       <Link to="/documents/upload">Upload Novo Documento</Link>
-      <br /> 
-      <Link to="/menu">MENU</Link>
+      <br />
+      <Link to="/menu">MENU</Link>     
     </div>
   );
 };
