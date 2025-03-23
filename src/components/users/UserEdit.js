@@ -21,7 +21,7 @@ const UserEdit = () => {
     setCpf('');
     setActive(null);
 
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxODM4NjMsImV4cCI6MTc0MjIxOTg2M30.j3AmsJIkdovgs_8pqpP4EGDS_-crNn7slkbGbrNX8Fo'
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
 
     axios.get(`http://localhost:8080/users/${id}`, 
       {
@@ -46,7 +46,7 @@ const UserEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxODM4NjMsImV4cCI6MTc0MjIxOTg2M30.j3AmsJIkdovgs_8pqpP4EGDS_-crNn7slkbGbrNX8Fo'
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
 
     const updatedUser = { email, username, permissionLevel };
 

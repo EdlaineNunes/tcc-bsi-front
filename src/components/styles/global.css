@@ -1,0 +1,236 @@
+/* Variáveis globais */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #ffdd57;
+    --text-color: #fff;
+    --background-color: #f0f2f5;
+    --table-header-color: #333;
+    --table-row-color: #fff;
+    --table-row-hover-color: #e9ecef;
+    --button-color: #007bff;
+    --button-hover-color: #0056b3;
+    --border-radius: 6px;
+    --transition: 0.3s;
+    --font-family: Arial, sans-serif;
+}
+
+/* Reset básico */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: #333;
+}
+
+/* Containers */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Folha por cima (aplicada apenas na tela de DocumentView) */
+.container.folha {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--primary-color);
+}
+
+/* Botões */
+button,
+a {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color var(--transition);
+    cursor: pointer;
+}
+
+button:hover,
+a:hover {
+    background-color: var(--button-hover-color);
+}
+
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button-group a,
+.button-group button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-group a:hover,
+.button-group button:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    color: #333;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+td {
+    background-color: var(--table-row-color);
+    border: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: var(--table-row-hover-color);
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botão Detalhes/Editar */
+.btn-detail {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.btn-detail:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Card de Detalhes */
+.details-card {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details-card p,
+.details-card h3 {
+    margin: 8px 0;
+    color: #333;
+}
+
+.details-card strong {
+    color: var(--primary-color);
+}
+
+.details-card button {
+    margin: 5px;
+}
+
+/* Formulário - Card */
+.form-card {
+    padding: 30px 40px;
+    margin: 20px auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título do Formulário */
+.form-card h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    width: 100%;
+    transition: border-color var(--transition);
+    margin-top: 5px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+input::placeholder {
+    color: #999;
+}
+
+/* Mensagem de Erro */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin: 20px 0;
+    text-align: center;
+}

@@ -1,20 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import LogoutButton from '../auth/LogoutButton';
+import styles from './styles/Menu.module.css';
 
 const Menu = () => {
   return (
-    <nav>
-      <ul>
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/usuarios">Usuários</Link></li>
-        <li><Link to="/users/listAll">Usuários - Listar todos</Link></li>
-        <li><Link to="/users/edit/:id">Usuários - Editar </Link></li>
-        <li><Link to="/users/create">Usuários - Registrar </Link></li>
-        <li><Link to="/documents">Documentos</Link></li>
-        <li><Link to="/documents/listAll">Documentos - Listar todos</Link></li>
-        <li><Link to="/documents/listAll/user">Documentos - Listar todos do usuário</Link></li>
-        {/* <li><LogoutButton /></li> */}
+    <nav className={styles.navbar}>
+      <ul className={styles.menuList}>
+        <li className={styles.menuItem}>
+          <Link to="/users/listAll" className={styles.menuButton}>Usuários - Listar todos</Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link to="/users/edit/:id" className={styles.menuButton}>Usuários - Editar</Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link to="/users/create" className={styles.menuButton}>Usuários - Registrar</Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link to="/documents/listAll" className={styles.menuButton}>Documentos - Listar todos</Link>
+        </li>
+        <li className={styles.menuItem}>
+          <Link to="/documents/listAll/user" className={styles.menuButton}>Documentos - Listar do usuário</Link>
+        </li>
       </ul>
     </nav>
   );

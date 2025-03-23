@@ -11,7 +11,7 @@ const UserList = () => {
 
   useEffect(() => {
     // const token = localStorage.getItem('data'); // Obtém o token do localStorage
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxODM4NjMsImV4cCI6MTc0MjIxOTg2M30.j3AmsJIkdovgs_8pqpP4EGDS_-crNn7slkbGbrNX8Fo'
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
 
     if (!token) {
       setError('Token não encontrado. Faça login novamente.');
@@ -43,37 +43,46 @@ const UserList = () => {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div>
+    <div className="container">
       <h2>Lista de Usuários</h2>
-      <table border="1" width="100%" cellPadding="10">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Permissão</th>
-            <th>Ativo</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.username}</td>
-              <td>{user.cpf}</td>
-              <td>{user.email}</td>
-              <td>{user.permissionLevel}</td>
-              <td>{user.active ? "✅ Sim" : "❌ Não"}</td>
-              <td>
-                <button onClick={() => navigate(`/users/edit/${user.id}`)}>Editar</button>
-              </td>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Email</th>
+              <th>Permissão</th>
+              <th>Ativo</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <li><Link to="/menu" >Menu</Link></li>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.username}</td>
+                <td>{user.cpf}</td>
+                <td>{user.email}</td>
+                <td>{user.permissionLevel}</td>
+                <td>{user.active ? "✅ Sim" : "❌ Não"}</td>
+                <td>
+                  <button 
+                    className="btn-detail" 
+                    onClick={() => navigate(`/users/edit/${user.id}`)}
+                  >
+                    Editar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="button-group">
+        <Link to="/menu" className="btn-menu">MENU</Link>
+      </div>
     </div>
   );
 };

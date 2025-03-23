@@ -25,18 +25,27 @@ const DocumentEdit = () => {
   };
 
   return (
-    <div>
-      <h2>Editar Documento</h2>
-      <form onSubmit={handleSave}>
-        <label>Nome do Documento:</label>
-        <input 
-          type="text" 
-          value={filename} 
-          onChange={(e) => setFilename(e.target.value)} 
-          required 
-        />
-        <button type="submit">Salvar</button>
-      </form>
+    <div className="container">
+      <div className="form-card">
+        <h2>Editar Documento</h2>
+        <form className="form" onSubmit={handleSave}>
+          <div className="form-group">
+            <label htmlFor="filename">Nome do Documento:</label>
+            <input
+              id="filename"
+              type="text"
+              value={filename}
+              onChange={(e) => setFilename(e.target.value)}
+              required
+              placeholder="Digite o nome do documento"
+            />
+          </div>
+          <div className="button-group">
+            <button type="submit">Salvar</button>
+            <button type="button" onClick={() => navigate('/documents')}>Cancelar</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

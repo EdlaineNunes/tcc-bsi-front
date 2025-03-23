@@ -49,6 +49,8 @@ import DocumentsListForMe from './components/documents/DocumentListForMe';
 import Menu from './components/Menu';
 import DocumentUpload from './components/documents/DocumentUpload';
 import DocumentView from './components/documents/DocumentView';
+import './components/styles/global.css';
+
 
 // function App() {
 //   return (
@@ -73,7 +75,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path='/menu' element={<Menu />} />
 
         <Route path='/users/listAll' element={<UsersList />} />

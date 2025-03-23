@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../styles/Login.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Login = () => {
       localStorage.setItem('data', JSON.stringify(response.data)); // Certifique-se de usar 'data'
 
       // localStorage.setItem('token', response.data); // Armazena o token no navegador
-      alert('sucesso.');
+      alert('Login realizado com sucesso!');
       console.log("iniciando chamada get usuarios. token -> ", response.data)
 
       navigate('/menu'); // Redireciona para o painel principal
@@ -31,17 +32,31 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <label>Email:</label>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+    <div className={styles.container}>
+      <div className={styles.loginBox}>
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <label className={styles.label}>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+            required
+          />
 
-        <label>Senha:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <label className={styles.label}>Senha:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+          />
 
-        <button type="submit">Entrar</button>
-      </form>
+          <button type="submit" className={styles.button}>Entrar</button>
+        </form>
+      </div>
     </div>
   );
 };

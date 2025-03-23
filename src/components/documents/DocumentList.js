@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const DocumentsList = () => {
   const [documents, setDocuments] = useState([]);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDIxODM4NjMsImV4cCI6MTc0MjIxOTg2M30.j3AmsJIkdovgs_8pqpP4EGDS_-crNn7slkbGbrNX8Fo'
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
 
   useEffect(() => {
     
@@ -48,9 +48,9 @@ const DocumentsList = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Lista de Documentos</h2>
-      <table border="1" width="100%" cellPadding="10">
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -60,24 +60,26 @@ const DocumentsList = () => {
           </tr>
         </thead>
         <tbody>
-          {documents.map(doc => (
+          {documents.map((doc) => (
             <tr key={doc.id}>
               <td>{doc.id}</td>
               <td>{doc.filename}</td>
               <td>{new Date(doc.createdAt).toLocaleString()}</td>
               <td>
-                <Link to={`/documents/view/${doc.id}`}>Visualizar</Link> | 
-                <Link to={`/documents/edit/${doc.id}`}>Editar</Link> | 
-                <Link to={`/documents/share/${doc.id}`}>Compartilhar</Link>
-                <button onClick={() => handleDownload(doc.id)}>Baixar</button>
+                <div className="action-buttons">
+                  <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
+                  <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>Baixar</button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Link to="/documents/upload">Upload Novo Documento</Link>
-      <br /> 
-      <Link to="/menu">MENU</Link>
+
+      <div className="button-group">
+        <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
+        <Link to="/menu" className="btn btn-menu">MENU</Link>
+      </div>
     </div>
   );
 };
