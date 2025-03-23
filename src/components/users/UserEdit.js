@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const UserEdit = () => {
+const UserEdit = ({ token }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ const UserEdit = () => {
     setCpf('');
     setActive(null);
 
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
+    console.log("TokenUserEdit :: ", token)
 
     axios.get(`http://localhost:8080/users/${id}`, 
       {
@@ -46,7 +46,6 @@ const UserEdit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
 
     const updatedUser = { email, username, permissionLevel };
 

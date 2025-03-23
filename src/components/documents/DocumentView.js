@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 
-const DocumentView = () => {
+const DocumentView = ({ token }) => {
   const { id } = useParams();
   const [document, setDocument] = useState(null);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ';
+  console.log("Token DocumentView :: ", token)
 
   useEffect(() => {
     const fetchDocument = async () => {

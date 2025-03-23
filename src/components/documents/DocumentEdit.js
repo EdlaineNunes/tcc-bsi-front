@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const DocumentEdit = () => {
+const DocumentEdit = ({ token }) => {
+  console.log("Token DocumentEdit :: ", token)
+  
   const { id } = useParams();
   const navigate = useNavigate();
   const [filename, setFilename] = useState('');

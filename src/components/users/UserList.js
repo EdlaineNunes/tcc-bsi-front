@@ -3,15 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const UserList = () => {
+const UserList = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);  // Para gerenciar o estado de carregamento
   const [error, setError] = useState(null);     // Para capturar e exibir erros
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const token = localStorage.getItem('data'); // Obtém o token do localStorage
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
+    console.log("Token UserList :: ", token)    
 
     if (!token) {
       setError('Token não encontrado. Faça login novamente.');
@@ -20,8 +19,6 @@ const UserList = () => {
       return;
     }
 
-
-    console.log("token recuperado ---> ", token)
 
     axios.get('http://localhost:8080/users/', {
       headers: {

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const DocumentsList = () => {
+const DocumentsList = ({ token }) => {
   const [documents, setDocuments] = useState([]);
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDUwNDcsImV4cCI6MTc0MjU0MTA0N30.3dTzZ8PrMqSmwA-APgcOZA3aL4K__m1H2aurTw2YMMk'
+  console.log("Token DocumentListForMe :: ", token)
 
   useEffect(() => {
     

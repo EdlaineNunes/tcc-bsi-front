@@ -1,8 +1,11 @@
+// Menu.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles/Menu.module.css';
 
-const Menu = () => {
+const Menu = ({ token }) => {
+  console.log("Token no Menu:", token);
+
   return (
     <nav className={styles.navbar}>
       <ul className={styles.menuList}>

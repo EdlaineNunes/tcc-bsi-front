@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const DocumentUpload = () => {
+const DocumentUpload = ({ token }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJlZGxhaW5lLm51bmVzckBnbWFpbC5jb20iLCJpYXQiOjE3NDI1MDQ5OTIsImV4cCI6MTc0MjU0MDk5Mn0.fGcyoKT10aO9imIwjk3kEoOEuRHivswR9_8Y2si-YjQ'
-
+  console.log("Token DocumentUpload :: ", token)
+  
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };

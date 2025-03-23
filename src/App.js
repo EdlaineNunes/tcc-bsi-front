@@ -36,7 +36,7 @@
 // export default App;
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/auth/PrivateRoute';
@@ -72,20 +72,22 @@ import './components/styles/global.css';
 // }
 
 function App() {
+  const [token, setToken] = useState('');
+  
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path='/menu' element={<Menu />} />
+        <Route path="/" element={<Login setToken={setToken} />} />
+        <Route path='/menu' element={<Menu token={token} />} />
 
-        <Route path='/users/listAll' element={<UsersList />} />
-        <Route path='/users/edit/:id' element={<UserEdit />} />
-        <Route path='/users/create' element={<UserCreate />} />
+        <Route path='/users/listAll' element={<UsersList token={token}/>} />
+        <Route path='/users/edit/:id' element={<UserEdit token={token}/>} />
+        <Route path='/users/create' element={<UserCreate token={token}/>} />
         
-        <Route path='/documents/listAll' element={<DocumentsList />} />
-        <Route path='/documents/listAll/user' element={<DocumentsListForMe />} />
-        <Route path='/documents/upload' element={<DocumentUpload />} />
-        <Route path='/documents/view/:id' element={<DocumentView />} />
+        <Route path='/documents/listAll' element={<DocumentsList token={token} />} />
+        <Route path='/documents/listAll/user' element={<DocumentsListForMe token={token}/>} />
+        <Route path='/documents/upload' element={<DocumentUpload token={token}/>} />
+        <Route path='/documents/view/:id' element={<DocumentView token={token}/>} />
 
 
 

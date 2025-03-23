@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const DocumentShare = () => {
+const DocumentShare = ({ token }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
+  console.log("Token DocumentShare :: ", token)
 
   const handleShare = async (e) => {
     e.preventDefault();

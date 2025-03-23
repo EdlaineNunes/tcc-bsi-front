@@ -1,9 +1,10 @@
+// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Login.module.css';
 
-const Login = () => {
+const Login = ({ setToken }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -12,19 +13,21 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Envia os dados como query parameters
       const response = await axios.post(
         `http://localhost:8080/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
       );
 
-      console.log("response atual", response.data)
-      localStorage.setItem('data', JSON.stringify(response.data)); // Certifique-se de usar 'data'
+      const token = response.data.token || response.data;
+      console.log("Token recebido:", token);
+      
+      if (!token) {
+        throw new Error("Token não encontrado na resposta");
+      }
 
-      // localStorage.setItem('token', response.data); // Armazena o token no navegador
+      setToken(token);  // Passando o token para o estado global
+
       alert('Login realizado com sucesso!');
-      console.log("iniciando chamada get usuarios. token -> ", response.data)
-
-      navigate('/menu'); // Redireciona para o painel principal
+      navigate('/menu');
     } catch (error) {
       console.error('Erro no login:', error);
       alert('Login falhou. Verifique suas credenciais.');
