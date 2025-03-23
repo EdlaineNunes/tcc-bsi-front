@@ -6,7 +6,7 @@ const DocumentUpload = ({ token }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   console.log("Token DocumentUpload :: ", token)
-  
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };

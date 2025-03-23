@@ -23,7 +23,7 @@ const UserEdit = ({ token }) => {
 
     console.log("TokenUserEdit :: ", token)
 
-    axios.get(`http://localhost:8080/users/${id}`, 
+    axios.get(`http://localhost:8080/users/${id}`,
       {
         headers: {
           "Authorization": `Bearer ${token}`,  // Adiciona o token no cabeçalho
@@ -70,40 +70,40 @@ const UserEdit = ({ token }) => {
       <h2>Editar Usuário</h2>
       {error && <div style={{ color: 'red' }}>{error}</div>}
       {success && <div style={{ color: 'green' }}>Usuário atualizado com sucesso!</div>}
-      
+
       <form onSubmit={handleSubmit}>
-      <div>
+        <div>
           <label>Nome</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Cpf</label>
-          <input 
-            type="text" 
-            value={cpf} 
-            onChange={(e) => setCpf(e.target.value)} 
+          <input
+            type="text"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Email</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Role</label>
-          <select 
-            value={permissionLevel} 
-            onChange={(e) => setPermissionLevel(e.target.value)} 
+          <select
+            value={permissionLevel}
+            onChange={(e) => setPermissionLevel(e.target.value)}
             required
           >
             <option value="GUEST">GUEST - Convidado</option>
@@ -114,9 +114,9 @@ const UserEdit = ({ token }) => {
         </div>
         <div>
           <label>Status</label>
-          <select 
-            value={active} 
-            onChange={(e) => setActive(e.target.value)} 
+          <select
+            value={active}
+            onChange={(e) => setActive(e.target.value)}
             required
           >
             <option value="true">Ativo</option>

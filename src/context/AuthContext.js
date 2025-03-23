@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { jwtDecode } from 'jwt-decode'; 
+import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
 
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
   if (loading) {
     return <div>Carregando...</div>; // Exibe uma mensagem enquanto carrega
   }
-  
+
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}

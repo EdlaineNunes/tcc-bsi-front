@@ -7,7 +7,7 @@ const DocumentsList = ({ token }) => {
   console.log("Token DocumentListForMe :: ", token)
 
   useEffect(() => {
-    
+
     const fetchDocuments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/files/my-files', {
@@ -66,8 +66,8 @@ const DocumentsList = ({ token }) => {
               <td>{doc.filename}</td>
               <td>{new Date(doc.createdAt).toLocaleString()}</td>
               <td>
-                <Link to={`/documents/view/${doc.id}`}>Visualizar</Link> | 
-                <Link to={`/documents/edit/${doc.id}`}>Editar</Link> | 
+                <Link to={`/documents/view/${doc.id}`}>Visualizar</Link> |
+                <Link to={`/documents/edit/${doc.id}`}>Editar</Link> |
                 <Link to={`/documents/share/${doc.id}`}>Compartilhar</Link>
                 <button onClick={() => handleDownload(doc.id)}>Baixar</button>
               </td>
@@ -77,7 +77,7 @@ const DocumentsList = ({ token }) => {
       </table>
       <Link to="/documents/upload">Upload Novo Documento</Link>
       <br />
-      <Link to="/menu">MENU</Link>     
+      <Link to="/menu">MENU</Link>
     </div>
   );
 };

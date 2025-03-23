@@ -19,7 +19,7 @@ const Login = ({ setToken }) => {
 
       const token = response.data.token || response.data;
       console.log("Token recebido:", token);
-      
+
       if (!token) {
         throw new Error("Token não encontrado na resposta");
       }

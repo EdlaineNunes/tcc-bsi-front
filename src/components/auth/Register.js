@@ -27,17 +27,17 @@ const Register = () => {
     <div>
       <h2>Cadastro</h2>
       <form onSubmit={handleRegister}>
-        <input 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          placeholder="Email" 
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
         />
-        <input 
-          type="password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Senha" 
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Senha"
         />
         <select onChange={(e) => setRole(e.target.value)}>
           <option value="">Selecione a função</option>

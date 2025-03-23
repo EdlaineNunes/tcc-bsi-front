@@ -12,8 +12,8 @@ const DocumentShare = ({ token }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`http://localhost:8080/api/documents/share/${id}`, null, { 
-        params: { email } 
+      await axios.post(`http://localhost:8080/api/documents/share/${id}`, null, {
+        params: { email }
       });
       alert('Documento compartilhado com sucesso!');
       navigate('/documents');
@@ -27,11 +27,11 @@ const DocumentShare = ({ token }) => {
       <h2>Compartilhar Documento</h2>
       <form onSubmit={handleShare}>
         <label>Email do destinatário:</label>
-        <input 
-          type="email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-          required 
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <button type="submit">Compartilhar</button>
       </form>

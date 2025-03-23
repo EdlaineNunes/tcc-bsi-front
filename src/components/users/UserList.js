@@ -10,7 +10,7 @@ const UserList = ({ token }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Token UserList :: ", token)    
+    console.log("Token UserList :: ", token)
 
     if (!token) {
       setError('Token não encontrado. Faça login novamente.');
@@ -25,15 +25,15 @@ const UserList = ({ token }) => {
         "Authorization": `Bearer ${token}`
       }
     })
-    .then(response => {
-      setUsers(response.data);
-      setLoading(false);
-    })
-    .catch(error => {
-      console.error("Erro ao buscar usuários:", error);
-      setError("Erro ao carregar usuários.");
-      setLoading(false);
-    });
+      .then(response => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar usuários:", error);
+        setError("Erro ao carregar usuários.");
+        setLoading(false);
+      });
   }, []);
 
   if (loading) return <div>Carregando usuários...</div>;
@@ -65,8 +65,8 @@ const UserList = ({ token }) => {
                 <td>{user.permissionLevel}</td>
                 <td>{user.active ? "✅ Sim" : "❌ Não"}</td>
                 <td>
-                  <button 
-                    className="btn-detail" 
+                  <button
+                    className="btn-detail"
                     onClick={() => navigate(`/users/edit/${user.id}`)}
                   >
                     Editar

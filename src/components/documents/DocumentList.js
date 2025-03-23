@@ -7,7 +7,7 @@ const DocumentsList = ({ token }) => {
   console.log("Token DocumentList :: ", token)
 
   useEffect(() => {
-    
+
     const fetchDocuments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/files/all-files', {

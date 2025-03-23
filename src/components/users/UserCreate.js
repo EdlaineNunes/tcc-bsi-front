@@ -34,45 +34,45 @@ const UserCreate = ({ token }) => {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Email</label>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Nome</label>
-          <input 
-            type="text" 
-            value={username} 
-            onChange={(e) => setUsername(e.target.value)} 
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Senha</label>
-          <input 
-            type="password" 
-            value={password} 
-            onChange={(e) => setPassword(e.target.value)} 
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Cpf</label>
-          <input 
-            type="text" 
-            value={cpf} 
-            onChange={(e) => setCpf(e.target.value)} 
+          <input
+            type="text"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
             required
           />
         </div>
         <div>
           <label>Role</label>
-          <select 
-            value={permissionLevel} 
-            onChange={(e) => setPermissionLevel(e.target.value)} 
+          <select
+            value={permissionLevel}
+            onChange={(e) => setPermissionLevel(e.target.value)}
             required
           >
             <option value="GUEST">GUEST - Convidado</option>
@@ -83,9 +83,9 @@ const UserCreate = ({ token }) => {
         </div>
         <div>
           <label>Status</label>
-          <select 
-            value={active} 
-            onChange={(e) => setActive(e.target.value === 'true')} 
+          <select
+            value={active}
+            onChange={(e) => setActive(e.target.value === 'true')}
             required
           >
             <option value="true">Ativo</option>
