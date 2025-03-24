@@ -1,0 +1,84 @@
+.createContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0;
+    min-height: 100vh;
+    background-color: #e9eef5;
+}
+
+.createCard {
+    background-color: white;
+    padding: 50px;
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    /* Aumentando a largura da folha */
+    width: 90%;
+    margin: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    /* Centraliza os botões */
+    gap: 20px;
+    /* Espaçamento entre os botões */
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #357097;
+}
+
+.btnSecondary {
+    background-color: #555;
+}
+
+.btnSecondary:hover {
+    background-color: #444;
+}

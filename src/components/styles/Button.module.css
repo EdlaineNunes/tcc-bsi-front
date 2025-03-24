@@ -1,0 +1,40 @@
+.btn {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #357097;
+}
+
+.btn:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+.btnSecondary {
+    background-color: #555;
+}
+
+.btnSecondary:hover {
+    background-color: #444;
+}
+
+.linkButton {
+    background-color: transparent;
+    color: #4682b4;
+    text-decoration: underline;
+}
+
+.linkButton:hover {
+    background-color: transparent;
+    color: #357097;
+}

@@ -1,5 +1,4 @@
-/* Variáveis globais */
-:root {
+Variáveis globais:root {
     --primary-color: #007bff;
     --secondary-color: #ffdd57;
     --text-color: #fff;
@@ -49,19 +48,27 @@ h2 {
 button,
 a {
     background-color: var(--button-color);
+    /* Cor padrão do botão */
     color: var(--text-color);
+    /* Cor do texto */
     padding: 10px 20px;
     margin: 5px;
     border: none;
     border-radius: var(--border-radius);
     text-decoration: none;
-    transition: background-color var(--transition);
+    transition: background-color var(--transition), transform var(--transition);
+    /* Adicionando transição suave */
     cursor: pointer;
+    text-align: center;
+    font-size: 16px;
 }
 
 button:hover,
 a:hover {
     background-color: var(--button-hover-color);
+    /* Cor ao passar o mouse */
+    transform: translateY(-2px);
+    /* Efeito de leve subida */
 }
 
 .button-group {
@@ -88,7 +95,7 @@ a:hover {
 }
 
 /* Botões (Padrão Global) */
-button,
+/* button,
 a.btn {
     background-color: var(--button-color);
     color: var(--text-color);
@@ -108,7 +115,7 @@ a.btn {
 button:hover,
 a.btn:hover {
     background-color: var(--button-hover-color);
-}
+} */
 
 /* Botões de sucesso e erro */
 button.success,
@@ -196,6 +203,79 @@ tr:hover {
 .btn-detail:hover {
     background-color: var(--button-hover-color);
 }
+
+.btn-download {
+    background-color: var(--primary-color);
+    /* Cor principal */
+    color: var(--text-color);
+    /* Cor do texto */
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color var(--transition), transform var(--transition);
+    /* Transição suave */
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.btn-download:hover {
+    background-color: var(--button-hover-color);
+    /* Cor ao passar o mouse */
+    transform: translateY(-2px);
+    /* Efeito de subida */
+}
+
+
+/* Botão de Download */
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Botão de Ação na Visualização de Documento */
+.details-card button {
+    background-color: #0056b3;
+    margin: 5px;
+}
+
+.details-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Botões de Navegação */
+.button-group a,
+.btn {
+    background-color: #17a2b8;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.button-group a:hover,
+.btn:hover {
+    background-color: #138496;
+}
+
 
 /* Card de Detalhes */
 .details-card {

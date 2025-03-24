@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import styles from '../styles/UserEdit.module.css';
 
 const UserEdit = ({ token }) => {
   const { id } = useParams();
@@ -45,7 +46,7 @@ const UserEdit = ({ token }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedUser = { email, username, permissionLevel };
+    const updatedUser = { email, username, permissionLevel, active };
 
     try {
       await axios.put(`http://localhost:8080/users/${id}`, updatedUser, {
@@ -62,14 +63,14 @@ const UserEdit = ({ token }) => {
   };
 
   return (
-    <div className="edit-container">
-      <h2>Editar Usuário</h2>
+    <div className={styles.editContainer}>
+      <div className={styles.editCard}>
+        <h2>Editar Usuário</h2>
 
-      {error && <div className="message error">{error}</div>}
-      {success && <div className="message success">Usuário atualizado com sucesso!</div>}
+        {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+        {success && <div className={`${styles.message} ${styles.success}`}>Usuário atualizado com sucesso!</div>}
 
-      <form onSubmit={handleSubmit}>
-        <div>
+        <form onSubmit={handleSubmit}>
           <label>Nome</label>
           <input
             type="text"
@@ -77,8 +78,7 @@ const UserEdit = ({ token }) => {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>CPF</label>
           <input
             type="text"
@@ -86,8 +86,7 @@ const UserEdit = ({ token }) => {
             onChange={(e) => setCpf(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>Email</label>
           <input
             type="email"
@@ -95,8 +94,7 @@ const UserEdit = ({ token }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
+
           <label>Permissão</label>
           <select
             value={permissionLevel}
@@ -108,8 +106,7 @@ const UserEdit = ({ token }) => {
             <option value="ADMIN">ADMIN - Admin do sistema</option>
             <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
           </select>
-        </div>
-        <div>
+
           <label>Status</label>
           <select
             value={active}
@@ -119,12 +116,13 @@ const UserEdit = ({ token }) => {
             <option value="true">Ativo</option>
             <option value="false">Inativo</option>
           </select>
-        </div>
-        <div className="button-group">
-          <button type="submit" className="btn">Salvar Alterações</button>
-          <Link to="/menu" className="btn">Menu</Link>
-        </div>
-      </form>
+
+          <div className={styles.buttonGroup}>
+            <button type="submit" className={styles.btn}>Salvar</button>
+            <Link to="/menu" className={styles.btn}>Voltar</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

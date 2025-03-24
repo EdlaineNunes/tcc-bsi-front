@@ -1,7 +1,7 @@
-// src/components/users/UserCreate.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import styles from '../styles/UserCreate.module.css';
 
 const UserCreate = ({ token }) => {
   const [email, setEmail] = useState('');
@@ -34,10 +34,14 @@ const UserCreate = ({ token }) => {
   };
 
   return (
-    <div className="user-create-container">
-      <h2>Criar Novo Usuário</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className={styles.createContainer}>
+      <div className={styles.createCard}>
+        <h2>Criar Novo Usuário</h2>
+
+        {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+        {success && <div className={`${styles.message} ${styles.success}`}>Usuário criado com sucesso!</div>}
+
+        <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input
             type="email"
@@ -46,8 +50,7 @@ const UserCreate = ({ token }) => {
             required
             placeholder="Digite o e-mail"
           />
-        </div>
-        <div>
+
           <label>Nome</label>
           <input
             type="text"
@@ -56,8 +59,7 @@ const UserCreate = ({ token }) => {
             required
             placeholder="Digite o nome"
           />
-        </div>
-        <div>
+
           <label>Senha</label>
           <input
             type="password"
@@ -66,8 +68,7 @@ const UserCreate = ({ token }) => {
             required
             placeholder="Digite a senha"
           />
-        </div>
-        <div>
+
           <label>CPF</label>
           <input
             type="text"
@@ -76,37 +77,39 @@ const UserCreate = ({ token }) => {
             required
             placeholder="Digite o CPF"
           />
-        </div>
-        <div>
-          <label>Role</label>
+
+          <label>Permissão</label>
           <select
             value={permissionLevel}
             onChange={(e) => setPermissionLevel(e.target.value)}
             required
           >
+            <option value="">Selecione...</option>
             <option value="GUEST">GUEST - Convidado</option>
             <option value="USER">USER - Usuário comum</option>
             <option value="ADMIN">ADMIN - Admin do sistema</option>
             <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
           </select>
-        </div>
-        <div>
+
           <label>Status</label>
           <select
             value={active}
             onChange={(e) => setActive(e.target.value === 'true')}
             required
           >
+            <option value="">Selecione...</option>
             <option value="true">Ativo</option>
             <option value="false">Inativo</option>
           </select>
-        </div>
-        <button type="submit">Criar Usuário</button>
-      </form>
-      <li><Link to="/menu">Menu</Link></li>
+
+          <div className={styles.buttonGroup}>
+            <button type="submit" className={styles.btn}>Criar Usuário</button>
+            <Link to="/menu" className={`${styles.btn}`}>Voltar ao Menu</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
-
-}
+};
 
 export default UserCreate;

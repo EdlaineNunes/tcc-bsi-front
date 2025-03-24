@@ -63,7 +63,7 @@ const UserList = ({ token }) => {
                 <td>{user.cpf}</td>
                 <td>{user.email}</td>
                 <td>{user.permissionLevel}</td>
-                <td>{user.active ? "✅ Sim" : "❌ Não"}</td>
+                <td>{user.active ? "✅" : "❌"}</td>
                 <td>
                   <button
                     className="btn-detail"
@@ -78,7 +78,7 @@ const UserList = ({ token }) => {
         </table>
       </div>
       <div className="button-group">
-        <Link to="/menu" className="btn-menu">MENU</Link>
+        <Link to="/menu" className="btn-menu">Voltar</Link>
       </div>
     </div>
   );
