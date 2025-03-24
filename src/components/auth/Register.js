@@ -8,38 +8,48 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
   const history = useNavigate();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/register', {
+      await axios.post('http://localhost:8080/register', {
         email,
         password,
         role,
       });
-      history.push('/login'); // Após o cadastro, redireciona para o login
+      setSuccess(true);
+      setTimeout(() => history('/login'), 2000); // Redireciona após 2 segundos
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao registrar:', error);
+      setError('Erro ao realizar o cadastro.');
     }
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Cadastro</h2>
+
+      {error && <div className="message error">{error}</div>}
+      {success && <div className="message success">Cadastro realizado com sucesso!</div>}
+
       <form onSubmit={handleRegister}>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          required
         />
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Senha"
+          required
         />
-        <select onChange={(e) => setRole(e.target.value)}>
+        <select onChange={(e) => setRole(e.target.value)} required>
           <option value="">Selecione a função</option>
           <option value="USER">Usuário</option>
           <option value="ADMIN">Admin</option>

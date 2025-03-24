@@ -87,6 +87,65 @@ a:hover {
     background-color: var(--secondary-color);
 }
 
+/* Botões (Padrão Global) */
+button,
+a.btn {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: background-color var(--transition);
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    min-width: 120px;
+}
+
+button:hover,
+a.btn:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Botões de sucesso e erro */
+button.success,
+a.btn.success {
+    background-color: #28a745;
+}
+
+button.success:hover,
+a.btn.success:hover {
+    background-color: #218838;
+}
+
+button.error,
+a.btn.error {
+    background-color: #dc3545;
+}
+
+button.error:hover,
+a.btn.error:hover {
+    background-color: #c82333;
+}
+
+/* Botões menores para ações específicas */
+button.small,
+a.btn.small {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 80px;
+}
+
+/* Centralização de botão */
+.button-group,
+.back-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
 /* Tabelas */
 table {
     width: 100%;
@@ -233,4 +292,332 @@ input::placeholder {
     font-weight: bold;
     margin: 20px 0;
     text-align: center;
+}
+
+/* Ações na tabela */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.action-buttons .btn {
+    flex: 1;
+    padding: 8px 12px;
+    margin: 2px;
+    border-radius: var(--border-radius);
+}
+
+/* Página de Upload */
+.upload-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.upload-container h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.upload-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upload-container input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    background-color: var(--background-color);
+}
+
+.upload-container button {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    transition: background-color var(--transition);
+}
+
+.upload-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Página de Edição de Usuário */
+.edit-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-container h2 {
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.edit-container .message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.edit-container .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.edit-container .message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.edit-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.edit-container label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.edit-container input,
+.edit-container select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    width: 100%;
+    transition: border-color var(--transition);
+}
+
+.edit-container input:focus,
+.edit-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+.edit-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color var(--transition);
+}
+
+.edit-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.edit-container .back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.edit-container .back-link a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Container da página */
+.register-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+}
+
+/* Cabeçalho */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.register-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Inputs e Seleções */
+.register-container input,
+.register-container select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Botão de Cadastro */
+.register-container button {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    padding: 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    font-size: 16px;
+}
+
+.register-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Container da página */
+.user-create-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+}
+
+/* Cabeçalho */
+.user-create-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.user-create-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Inputs e Seleções */
+.user-create-container input,
+.user-create-container select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Botão de Cadastro */
+.user-create-container button {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    padding: 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    font-size: 16px;
+}
+
+.user-create-container button:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Link para o Menu */
+.user-create-container a {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.user-create-container a:hover {
+    text-decoration: underline;
+}
+
+/* Atualizando o estilo da tela de criação de usuário */
+.user-create-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.user-create-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Inputs e Seleções */
+.user-create-container input,
+.user-create-container select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.user-create-container input:focus,
+.user-create-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+}
+
+/* Botão de Cadastro */
+.user-create-container button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 12px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition);
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.user-create-container button:hover {
+    background-color: var(--button-hover-color);
+    transform: translateY(-2px);
+}
+
+/* Link para o Menu */
+.user-create-container a {
+    display: inline-block;
+    margin-top: 15px;
+    text-align: center;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-create-container a:hover {
+    text-decoration: underline;
+    color: var(--secondary-color);
 }

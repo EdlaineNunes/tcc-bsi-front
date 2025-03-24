@@ -4,10 +4,9 @@ import axios from 'axios';
 
 const DocumentsList = ({ token }) => {
   const [documents, setDocuments] = useState([]);
-  console.log("Token DocumentList :: ", token)
+  console.log("Token DocumentList :: ", token);
 
   useEffect(() => {
-
     const fetchDocuments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/files/all-files', {
@@ -22,7 +21,7 @@ const DocumentsList = ({ token }) => {
     };
 
     fetchDocuments();
-  }, []);
+  }, [token]);
 
   const handleDownload = async (id) => {
     try {
@@ -30,14 +29,13 @@ const DocumentsList = ({ token }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        responseType: 'blob', // Importante para baixar arquivos binários
+        responseType: 'blob',
       });
 
-      // Criar um link para o arquivo e fazer o download automaticamente
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `documento-${id}.pdf`); // Ajuste para o tipo correto
+      link.setAttribute('download', `documento-${id}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

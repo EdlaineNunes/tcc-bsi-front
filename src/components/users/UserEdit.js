@@ -9,9 +9,9 @@ const UserEdit = ({ token }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [permissionLevel, setPermissionLevel] = useState('');
-  const [cpf, setCpf] = useState('')
+  const [cpf, setCpf] = useState('');
   const [error, setError] = useState(null);
-  const [active, setActive] = useState(null)
+  const [active, setActive] = useState(null);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -21,28 +21,26 @@ const UserEdit = ({ token }) => {
     setCpf('');
     setActive(null);
 
-    console.log("TokenUserEdit :: ", token)
+    console.log("TokenUserEdit :: ", token);
 
-    axios.get(`http://localhost:8080/users/${id}`,
-      {
-        headers: {
-          "Authorization": `Bearer ${token}`,  // Adiciona o token no cabeçalho
-        },
-      }
-    )  // Ajustado para o mesmo endpoint do UserList
+    axios.get(`http://localhost:8080/users/${id}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    })
       .then((response) => {
         const { email, username, permissionLevel, cpf, active } = response.data;
         setEmail(email);
         setUsername(username);
         setPermissionLevel(permissionLevel);
-        setCpf(cpf)
-        setActive(active)
+        setCpf(cpf);
+        setActive(active);
       })
       .catch((error) => {
         console.error('Erro ao carregar usuário:', error);
         setError('Erro ao carregar usuário.');
       });
-  }, [id]);
+  }, [id, token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,15 +48,13 @@ const UserEdit = ({ token }) => {
     const updatedUser = { email, username, permissionLevel };
 
     try {
-      await axios.put(`http://localhost:8080/users/${id}`, updatedUser,
-        {
-          headers: {
-            "Authorization": `Bearer ${token}`,  // Adiciona o token no cabeçalho
-          },
-        }
-      );  // Ajuste para o mesmo endpoint
+      await axios.put(`http://localhost:8080/users/${id}`, updatedUser, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
       setSuccess(true);
-      setTimeout(() => navigate('/users/listAll'), 2000); // Redireciona após 2 segundos
+      setTimeout(() => navigate('/users/listAll'), 2000);
     } catch (error) {
       setError('Erro ao editar usuário.');
       console.error('Erro ao editar usuário:', error);
@@ -66,10 +62,11 @@ const UserEdit = ({ token }) => {
   };
 
   return (
-    <div>
+    <div className="edit-container">
       <h2>Editar Usuário</h2>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {success && <div style={{ color: 'green' }}>Usuário atualizado com sucesso!</div>}
+
+      {error && <div className="message error">{error}</div>}
+      {success && <div className="message success">Usuário atualizado com sucesso!</div>}
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -82,7 +79,7 @@ const UserEdit = ({ token }) => {
           />
         </div>
         <div>
-          <label>Cpf</label>
+          <label>CPF</label>
           <input
             type="text"
             value={cpf}
@@ -100,7 +97,7 @@ const UserEdit = ({ token }) => {
           />
         </div>
         <div>
-          <label>Role</label>
+          <label>Permissão</label>
           <select
             value={permissionLevel}
             onChange={(e) => setPermissionLevel(e.target.value)}
@@ -108,8 +105,8 @@ const UserEdit = ({ token }) => {
           >
             <option value="GUEST">GUEST - Convidado</option>
             <option value="USER">USER - Usuário comum</option>
-            <option value="ADMIN">ADMIN - Admin do sitema</option>
-            <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sitema</option>
+            <option value="ADMIN">ADMIN - Admin do sistema</option>
+            <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
           </select>
         </div>
         <div>
@@ -123,9 +120,11 @@ const UserEdit = ({ token }) => {
             <option value="false">Inativo</option>
           </select>
         </div>
-        <button type="submit">Salvar Alterações</button>
+        <div className="button-group">
+          <button type="submit" className="btn">Salvar Alterações</button>
+          <Link to="/menu" className="btn">Menu</Link>
+        </div>
       </form>
-      <li><Link to="/menu" >Menu</Link></li>
     </div>
   );
 };

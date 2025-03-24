@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const DocumentUpload = ({ token }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-  console.log("Token DocumentUpload :: ", token)
+  console.log("Token DocumentUpload :: ", token);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -31,7 +31,7 @@ const DocumentUpload = ({ token }) => {
       });
 
       alert('Upload realizado com sucesso!');
-      navigate('/documents/listAll'); // Redireciona para a lista de documentos
+      navigate('/documents/listAll');
     } catch (error) {
       console.error('Erro ao enviar documento:', error);
       alert('Erro ao enviar o documento.');
@@ -39,13 +39,13 @@ const DocumentUpload = ({ token }) => {
   };
 
   return (
-    <div>
+    <div className="upload-container">
       <h2>Upload de Documento</h2>
       <form onSubmit={handleUpload}>
         <input type="file" onChange={handleFileChange} />
-        <button type="submit">Enviar</button>
+        <button type="submit" className="btn btn-upload">Enviar</button>
       </form>
-      <button onClick={() => navigate('/menu')}>Voltar</button>
+      <button onClick={() => navigate('/menu')} className="btn btn-menu">Voltar</button>
     </div>
   );
 };
