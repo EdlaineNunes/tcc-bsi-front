@@ -24,14 +24,17 @@ const Login = ({ setToken }) => {
         throw new Error("Token não encontrado na resposta");
       }
 
-      setToken(token);  // Passando o token para o estado global
-
+      setToken(token);
       alert('Login realizado com sucesso!');
       navigate('/menu');
     } catch (error) {
       console.error('Erro no login:', error);
       alert('Login falhou. Verifique suas credenciais.');
     }
+  };
+
+  const handleRegisterRedirect = () => {
+    navigate('/register');
   };
 
   return (
@@ -59,6 +62,12 @@ const Login = ({ setToken }) => {
 
           <button type="submit" className={styles.button}>Entrar</button>
         </form>
+        <button
+          onClick={handleRegisterRedirect}
+          className={`${styles.button} ${styles.registerButton}`}
+        >
+          Não tem uma conta? Registre-se
+        </button>
       </div>
     </div>
   );

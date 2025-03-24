@@ -24,6 +24,10 @@ const Menu = ({ token }) => {
         <li className={styles.menuItem}>
           <Link to="/documents/listAll/user" className={styles.menuButton}>Documentos - Listar do usuário</Link>
         </li>
+
+        <li className={styles.menuItem}>
+          <Link to="/register" className={styles.menuButton}>Registro</Link>
+        </li>
       </ul>
     </nav>
   );

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/auth/PrivateRoute';
 import Login from './components/auth/Login';
+import RegisterUser from './components/auth/RegisterUser';
 import UsersList from './components/users/UserList';
 import UserEdit from './components/users/UserEdit';
 import UserCreate from './components/users/UserCreate';
@@ -30,6 +31,8 @@ function App() {
         <Route path='/documents/listAll/user' element={<DocumentsListForMe token={token} />} />
         <Route path='/documents/upload' element={<DocumentUpload token={token} />} />
         <Route path='/documents/view/:id' element={<DocumentView token={token} />} />
+
+        <Route path='/register' element={<RegisterUser token={token} />} />
 
       </Routes>
     </Router>

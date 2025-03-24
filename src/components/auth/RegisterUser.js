@@ -1,9 +1,9 @@
-// src/components/auth/Register.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../styles/Register.module.css';
 
-const Register = () => {
+const RegisterUser = ({ token }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('');
@@ -11,6 +11,7 @@ const Register = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
+  console.log("Token :: ", token)
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -20,7 +21,7 @@ const Register = () => {
         role,
       });
       setSuccess(true);
-      setTimeout(() => history('/login'), 2000); // Redireciona após 2 segundos
+      setTimeout(() => history('/login'), 2000);
     } catch (error) {
       console.error('Erro ao registrar:', error);
       setError('Erro ao realizar o cadastro.');
@@ -28,11 +29,11 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
+    <div className={styles['register-container']}>
       <h2>Cadastro</h2>
 
-      {error && <div className="message error">{error}</div>}
-      {success && <div className="message success">Cadastro realizado com sucesso!</div>}
+      {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+      {success && <div className={`${styles.message} ${styles.success}`}>Cadastro realizado com sucesso!</div>}
 
       <form onSubmit={handleRegister}>
         <input
@@ -51,8 +52,7 @@ const Register = () => {
         />
         <select onChange={(e) => setRole(e.target.value)} required>
           <option value="">Selecione a função</option>
-          <option value="USER">Usuário</option>
-          <option value="ADMIN">Admin</option>
+          <option value="GUEST">Usuário</option>
         </select>
         <button type="submit">Cadastrar</button>
       </form>
@@ -60,4 +60,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterUser;
