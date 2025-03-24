@@ -87,3 +87,19 @@ button:active {
     background-color: #28a745;
     color: var(--text-color);
 }
+
+.back-button {
+    margin-top: 10px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color var(--transition);
+    width: 97%;
+}
+
+.back-button:hover {
+    background-color: var(--button-hover-color);
+}

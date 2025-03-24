@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import styles from '../styles/DocumentUpload.module.css';
 
 const DocumentUpload = ({ token }) => {
   const [file, setFile] = useState(null);
@@ -39,13 +40,23 @@ const DocumentUpload = ({ token }) => {
   };
 
   return (
-    <div className="upload-container">
-      <h2>Upload de Documento</h2>
-      <form onSubmit={handleUpload}>
-        <input type="file" onChange={handleFileChange} />
-        <button type="submit" className="btn btn-upload">Enviar</button>
-      </form>
-      <button onClick={() => navigate('/menu')} className="btn btn-menu">Voltar</button>
+    <div className={styles["upload-container"]}>
+      <div className={styles["upload-card"]}>
+        <h2>Upload de Documento</h2>
+        <form onSubmit={handleUpload}>
+          <input type="file" onChange={handleFileChange} />
+          <div className={styles["button-group"]}>
+            <button type="submit" className={`btn ${styles["btn-upload"]}`}>Enviar</button>
+            <button
+              type="button"
+              onClick={() => navigate('/menu')}
+              className={`btn ${styles["btn-menu"]}`}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

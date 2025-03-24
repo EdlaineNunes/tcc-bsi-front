@@ -11,7 +11,8 @@ const RegisterUser = ({ token }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  console.log("Token :: ", token)
+  console.log("Token :: ", token);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -56,6 +57,15 @@ const RegisterUser = ({ token }) => {
         </select>
         <button type="submit">Cadastrar</button>
       </form>
+
+      {/* Botão para voltar ao login */}
+      <button
+        type="button"
+        className={styles['back-button']}
+        onClick={() => history('/')}
+      >
+        Voltar para o Login
+      </button>
     </div>
   );
 };

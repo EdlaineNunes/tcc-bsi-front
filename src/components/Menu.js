@@ -8,6 +8,7 @@ const Menu = ({ token }) => {
 
   return (
     <nav className={styles.navbar}>
+      <h1>MENU</h1>
       <ul className={styles.menuList}>
         <li className={styles.menuItem}>
           <Link to="/users/listAll" className={styles.menuButton}>Usuários - Listar todos</Link>
