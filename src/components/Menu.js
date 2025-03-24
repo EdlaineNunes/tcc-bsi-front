@@ -22,7 +22,7 @@ const Menu = ({ token }) => {
           <Link to="/documents/listAll" className={styles.menuButton}>Documentos - Listar todos</Link>
         </li>
         <li className={styles.menuItem}>
-          <Link to="/documents/listAll/user" className={styles.menuButton}>Documentos - Listar do usuário</Link>
+          <Link to="/documents/listAll/user" className={styles.menuButton}>Documentos - Meus Documentos</Link>
         </li>
 
         <li className={styles.menuItem}>

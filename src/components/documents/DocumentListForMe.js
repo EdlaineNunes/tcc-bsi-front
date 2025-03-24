@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const DocumentsList = ({ token }) => {
+const DocumentsListForMe = ({ token }) => {
   const [documents, setDocuments] = useState([]);
-  console.log("Token DocumentListForMe :: ", token)
+  console.log("Token DocumentListForMe :: ", token);
 
   useEffect(() => {
-
     const fetchDocuments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/files/my-files', {
@@ -22,7 +21,7 @@ const DocumentsList = ({ token }) => {
     };
 
     fetchDocuments();
-  }, []);
+  }, [token]);
 
   const handleDownload = async (id) => {
     try {
@@ -30,14 +29,13 @@ const DocumentsList = ({ token }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        responseType: 'blob', // Importante para baixar arquivos binários
+        responseType: 'blob',
       });
 
-      // Criar um link para o arquivo e fazer o download automaticamente
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `documento-${id}.pdf`); // Ajuste para o tipo correto
+      link.setAttribute('download', `documento-${id}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -48,9 +46,9 @@ const DocumentsList = ({ token }) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Lista de Documentos</h2>
-      <table border="1" width="100%" cellPadding="10">
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -60,26 +58,28 @@ const DocumentsList = ({ token }) => {
           </tr>
         </thead>
         <tbody>
-          {documents.map(doc => (
+          {documents.map((doc) => (
             <tr key={doc.id}>
               <td>{doc.id}</td>
               <td>{doc.filename}</td>
               <td>{new Date(doc.createdAt).toLocaleString()}</td>
               <td>
-                <Link to={`/documents/view/${doc.id}`}>Visualizar</Link> |
-                <Link to={`/documents/edit/${doc.id}`}>Editar</Link> |
-                <Link to={`/documents/share/${doc.id}`}>Compartilhar</Link>
-                <button onClick={() => handleDownload(doc.id)}>Baixar</button>
+                <div className="action-buttons">
+                  <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
+                  <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>Baixar</button>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Link to="/documents/upload">Upload Novo Documento</Link>
-      <br />
-      <Link to="/menu">MENU</Link>
+
+      <div className="button-group">
+        <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
+        <Link to="/menu" className="btn btn-menu">MENU</Link>
+      </div>
     </div>
   );
 };
 
-export default DocumentsList;
+export default DocumentsListForMe;
