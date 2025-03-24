@@ -1,6 +1,6 @@
-Variáveis globais:root {
+:root {
     --primary-color: #007bff;
-    --secondary-color: #ffdd57;
+    --secondary-color: #005f99;
     --text-color: #fff;
     --background-color: #f0f2f5;
     --table-header-color: #333;
@@ -8,6 +8,12 @@ Variáveis globais:root {
     --table-row-hover-color: #e9ecef;
     --button-color: #007bff;
     --button-hover-color: #0056b3;
+    --success-color: #28a745;
+    --success-hover-color: #218838;
+    --error-color: #dc3545;
+    --error-hover-color: #c82333;
+    --link-color: #17a2b8;
+    --link-hover-color: #138496;
     --border-radius: 6px;
     --transition: 0.3s;
     --font-family: Arial, sans-serif;
@@ -30,14 +36,17 @@ html {
     padding: 20px;
 }
 
-/* Folha por cima (aplicada apenas na tela de DocumentView) */
-.container.folha {
+.container.folha,
+.details-card,
+.upload-container,
+.edit-container,
+.user-create-container,
+.register-container {
     background-color: #fff;
     border-radius: var(--border-radius);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Títulos */
 h2 {
     margin-bottom: 20px;
     text-align: center;
@@ -46,29 +55,50 @@ h2 {
 
 /* Botões */
 button,
-a {
+a,
+.btn,
+.button-group a,
+.button-group button {
     background-color: var(--button-color);
-    /* Cor padrão do botão */
     color: var(--text-color);
-    /* Cor do texto */
     padding: 10px 20px;
     margin: 5px;
     border: none;
     border-radius: var(--border-radius);
     text-decoration: none;
     transition: background-color var(--transition), transform var(--transition);
-    /* Adicionando transição suave */
     cursor: pointer;
-    text-align: center;
     font-size: 16px;
+    text-align: center;
 }
 
 button:hover,
-a:hover {
+a:hover,
+.btn:hover,
+.button-group a:hover,
+.button-group button:hover {
     background-color: var(--button-hover-color);
-    /* Cor ao passar o mouse */
     transform: translateY(-2px);
-    /* Efeito de leve subida */
+}
+
+button.success,
+a.success {
+    background-color: var(--success-color);
+}
+
+button.success:hover,
+a.success:hover {
+    background-color: var(--success-hover-color);
+}
+
+button.error,
+a.error {
+    background-color: var(--error-color);
+}
+
+button.error:hover,
+a.error:hover {
+    background-color: var(--error-hover-color);
 }
 
 .button-group {
@@ -80,77 +110,25 @@ a:hover {
 
 .button-group a,
 .button-group button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.button-group a:hover,
-.button-group button:hover {
-    background-color: var(--secondary-color);
-}
-
-/* Botões (Padrão Global) */
-/* button,
-a.btn {
-    background-color: var(--button-color);
-    color: var(--text-color);
-    padding: 12px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    transition: background-color var(--transition);
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-    display: inline-block;
-    min-width: 120px;
-}
-
-button:hover,
-a.btn:hover {
-    background-color: var(--button-hover-color);
-} */
-
-/* Botões de sucesso e erro */
-button.success,
-a.btn.success {
-    background-color: #28a745;
-}
-
-button.success:hover,
-a.btn.success:hover {
-    background-color: #218838;
-}
-
-button.error,
-a.btn.error {
-    background-color: #dc3545;
-}
-
-button.error:hover,
-a.btn.error:hover {
-    background-color: #c82333;
-}
-
-/* Botões menores para ações específicas */
-button.small,
-a.btn.small {
     padding: 8px 16px;
-    font-size: 14px;
-    min-width: 80px;
+    margin: 2px;
 }
 
-/* Centralização de botão */
-.button-group,
-.back-link {
+/* Links */
+.user-create-container a,
+.register-container a {
+    display: inline-block;
+    margin-top: 15px;
     text-align: center;
-    margin: 20px 0;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.user-create-container a:hover,
+.register-container a:hover {
+    text-decoration: underline;
+    color: var(--secondary-color);
 }
 
 /* Tabelas */
@@ -158,9 +136,6 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #fff;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 th,
@@ -168,17 +143,11 @@ td {
     padding: 12px;
     text-align: left;
     color: #333;
-    word-wrap: break-word;
 }
 
 th {
     background-color: var(--primary-color);
     color: var(--text-color);
-}
-
-td {
-    background-color: var(--table-row-color);
-    border: 1px solid #ddd;
 }
 
 tr:nth-child(even) {
@@ -189,133 +158,11 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Botão Detalhes/Editar */
-.btn-detail {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    padding: 8px 12px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color var(--transition);
-}
-
-.btn-detail:hover {
-    background-color: var(--button-hover-color);
-}
-
-.btn-download {
-    background-color: var(--primary-color);
-    /* Cor principal */
-    color: var(--text-color);
-    /* Cor do texto */
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    transition: background-color var(--transition), transform var(--transition);
-    /* Transição suave */
-    cursor: pointer;
-    font-size: 16px;
-    display: inline-block;
-}
-
-.btn-download:hover {
-    background-color: var(--button-hover-color);
-    /* Cor ao passar o mouse */
-    transform: translateY(-2px);
-    /* Efeito de subida */
-}
-
-
-/* Botão de Download */
-button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 16px;
-    margin: 5px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-/* Botão de Ação na Visualização de Documento */
-.details-card button {
-    background-color: #0056b3;
-    margin: 5px;
-}
-
-.details-card button:hover {
-    background-color: #0056b3;
-}
-
-/* Botões de Navegação */
-.button-group a,
-.btn {
-    background-color: #17a2b8;
-    color: white;
-    padding: 8px 16px;
-    margin: 5px;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s ease;
-}
-
-.button-group a:hover,
-.btn:hover {
-    background-color: #138496;
-}
-
-
-/* Card de Detalhes */
-.details-card {
-    background-color: #fff;
-    padding: 20px;
-    margin: 20px 0;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.details-card p,
-.details-card h3 {
-    margin: 8px 0;
-    color: #333;
-}
-
-.details-card strong {
-    color: var(--primary-color);
-}
-
-.details-card button {
-    margin: 5px;
-}
-
-/* Formulário - Card */
-.form-card {
-    padding: 30px 40px;
-    margin: 20px auto;
-    max-width: 500px;
+/* Ações na tabela */
+.action-buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Título do Formulário */
-.form-card h2 {
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    font-size: 24px;
-    text-align: center;
+    gap: 10px;
+    justify-content: center;
 }
 
 /* Formulários */
@@ -326,18 +173,6 @@ form {
     width: 100%;
 }
 
-.form-group {
-    margin-bottom: 15px;
-    width: 100%;
-}
-
-label {
-    font-size: 16px;
-    margin-bottom: 8px;
-    color: #333;
-    font-weight: bold;
-}
-
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -346,15 +181,12 @@ select {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
-    font-size: 16px;
-    width: 100%;
-    transition: border-color var(--transition);
     margin-top: 5px;
+    font-size: 16px;
+    transition: border-color var(--transition);
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
+input:focus,
 textarea:focus,
 select:focus {
     outline: none;
@@ -362,8 +194,11 @@ select:focus {
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
 }
 
-input::placeholder {
-    color: #999;
+/* Upload */
+.upload-container input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: var(--background-color);
 }
 
 /* Mensagem de Erro */
@@ -374,79 +209,7 @@ input::placeholder {
     text-align: center;
 }
 
-/* Ações na tabela */
-.action-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-}
-
-.action-buttons .btn {
-    flex: 1;
-    padding: 8px 12px;
-    margin: 2px;
-    border-radius: var(--border-radius);
-}
-
-/* Página de Upload */
-.upload-container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.upload-container h2 {
-    margin-bottom: 20px;
-    color: var(--primary-color);
-}
-
-.upload-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.upload-container input[type="file"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    background-color: var(--background-color);
-}
-
-.upload-container button {
-    width: 100%;
-    padding: 12px;
-    margin: 5px 0;
-    border-radius: var(--border-radius);
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    transition: background-color var(--transition);
-}
-
-.upload-container button:hover {
-    background-color: var(--button-hover-color);
-}
-
-/* Página de Edição de Usuário */
-.edit-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.edit-container h2 {
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    text-align: center;
-}
-
+/* Mensagens de Sucesso e Erro */
 .edit-container .message {
     margin: 10px 0;
     padding: 10px;
@@ -464,240 +227,35 @@ input::placeholder {
     color: #155724;
 }
 
-.edit-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Botões de Ação na Visualização de Documento */
+.details-card button {
+    margin: 5px;
+    background-color: var(--button-hover-color);
 }
 
-.edit-container label {
-    font-size: 16px;
-    margin-bottom: 5px;
+/* Botão Detalhes/Editar */
+.btn-detail {
+    background-color: var(--primary-color);
+}
+
+.btn-detail:hover {
+    background-color: var(--button-hover-color);
+}
+
+/* Centralização de botão */
+.button-group,
+.back-link {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Card de Detalhes */
+.details-card p,
+.details-card h3 {
+    margin: 8px 0;
     color: #333;
-    font-weight: bold;
 }
 
-.edit-container input,
-.edit-container select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    font-size: 16px;
-    width: 100%;
-    transition: border-color var(--transition);
-}
-
-.edit-container input:focus,
-.edit-container select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
-}
-
-.edit-container button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    border-radius: var(--border-radius);
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    cursor: pointer;
-    transition: background-color var(--transition);
-}
-
-.edit-container button:hover {
-    background-color: var(--button-hover-color);
-}
-
-.edit-container .back-link {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.edit-container .back-link a {
-    text-decoration: none;
+.details-card strong {
     color: var(--primary-color);
-    font-weight: bold;
-}
-
-/* Container da página */
-.register-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: var(--background-color);
-}
-
-/* Cabeçalho */
-.register-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Formulário */
-.register-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* Inputs e Seleções */
-.register-container input,
-.register-container select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-/* Botão de Cadastro */
-.register-container button {
-    background-color: var(--button-color);
-    color: var(--text-color);
-    padding: 12px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color var(--transition);
-    font-size: 16px;
-}
-
-.register-container button:hover {
-    background-color: var(--button-hover-color);
-}
-
-/* Container da página */
-.user-create-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: var(--background-color);
-}
-
-/* Cabeçalho */
-.user-create-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* Formulário */
-.user-create-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* Inputs e Seleções */
-.user-create-container input,
-.user-create-container select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    margin-bottom: 10px;
-    font-size: 16px;
-}
-
-/* Botão de Cadastro */
-.user-create-container button {
-    background-color: var(--button-color);
-    color: var(--text-color);
-    padding: 12px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color var(--transition);
-    font-size: 16px;
-}
-
-.user-create-container button:hover {
-    background-color: var(--button-hover-color);
-}
-
-/* Link para o Menu */
-.user-create-container a {
-    display: inline-block;
-    margin-top: 10px;
-    text-align: center;
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-.user-create-container a:hover {
-    text-decoration: underline;
-}
-
-/* Atualizando o estilo da tela de criação de usuário */
-.user-create-container {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-}
-
-.user-create-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Inputs e Seleções */
-.user-create-container input,
-.user-create-container select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: var(--border-radius);
-    margin-bottom: 10px;
-    font-size: 16px;
-    background-color: #f9f9f9;
-    transition: border-color var(--transition), background-color var(--transition);
-}
-
-.user-create-container input:focus,
-.user-create-container select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    background-color: #fff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
-}
-
-/* Botão de Cadastro */
-.user-create-container button {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    padding: 12px;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    transition: background-color var(--transition), transform var(--transition);
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-.user-create-container button:hover {
-    background-color: var(--button-hover-color);
-    transform: translateY(-2px);
-}
-
-/* Link para o Menu */
-.user-create-container a {
-    display: inline-block;
-    margin-top: 15px;
-    text-align: center;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.user-create-container a:hover {
-    text-decoration: underline;
-    color: var(--secondary-color);
 }
