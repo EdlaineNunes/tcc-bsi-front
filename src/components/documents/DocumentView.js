@@ -4,8 +4,8 @@ import axios from 'axios';
 
 const DocumentView = ({ token }) => {
   const { id } = useParams();
-  const [document, setDocument] = useState(null);
-  console.log("Token DocumentView :: ", token)
+  const [doc, setDoc] = useState(null); // Mudança de "document" para "doc"
+  console.log("Token DocumentView :: ", token);
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -13,7 +13,7 @@ const DocumentView = ({ token }) => {
         const response = await axios.get(`http://localhost:8080/files/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setDocument(response.data);
+        setDoc(response.data); // Atualizando para "setDoc"
         console.log(response.data);
       } catch (error) {
         console.error('Erro ao buscar documento:', error);
@@ -21,29 +21,31 @@ const DocumentView = ({ token }) => {
     };
 
     fetchDocument();
-  }, [id]);
+  }, [id, token]);
 
-  const handleDownload = async (fileId) => {
+  const handleDownload = async (documentId, versionIndex) => {
     try {
-      const response = await axios.get(`http://localhost:8080/files/download/${fileId}`, {
+      const response = await axios.get(`http://localhost:8080/files/download-version/${documentId}/${versionIndex}`, {
         headers: { Authorization: `Bearer ${token}` },
-        responseType: 'blob',
+        responseType: 'blob', // Garantindo que o arquivo seja tratado como blob
       });
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      const link = window.document.createElement('a'); // Usando "window.document" para o objeto global
       link.href = url;
-      link.setAttribute('download', `${document.filename}`);
-      document.body.appendChild(link);
+      link.setAttribute('download', `${doc.filename}`); // Nome do arquivo
+      window.document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+      window.document.body.removeChild(link);
+
+      alert('Download realizado com sucesso!');
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
       alert('Erro ao baixar o documento.');
     }
   };
 
-  if (!document) {
+  if (!doc) {
     return <p>Carregando...</p>;
   }
 
@@ -51,35 +53,35 @@ const DocumentView = ({ token }) => {
     <div className="container folha">
       <h2>Detalhes do Documento</h2>
       <div className="details-card">
-        <p><strong>ID:</strong> {document.id}</p>
-        <p><strong>Nome:</strong> {document.filename}</p>
-        <p><strong>Email do Cliente:</strong> {document.customerEmail}</p>
-        <p><strong>Data de Criação:</strong> {new Date(document.createdAt).toLocaleString()}</p>
+        <p><strong>ID:</strong> {doc.id}</p>
+        <p><strong>Nome:</strong> {doc.filename}</p>
+        <p><strong>Email do Cliente:</strong> {doc.customerEmail}</p>
+        <p><strong>Data de Criação:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
 
-        {document.latestVersion && (
+        {doc.latestVersion && (
           <>
             <h3>Última Versão</h3>
-            <p><strong>File ID:</strong> {document.latestVersion.fileId}</p>
-            <p><strong>Enviado em:</strong> {new Date(document.latestVersion.uploadedAt).toLocaleString()}</p>
-            <button onClick={() => handleDownload(document.latestVersion.fileId)}>Baixar Última Versão</button>
+            <p><strong>File ID:</strong> {doc.latestVersion.fileId}</p>
+            <p><strong>Enviado em:</strong> {new Date(doc.latestVersion.uploadedAt).toLocaleString()}</p>
+            <button onClick={() => handleDownload(doc.id, doc.versions.length - 1)}>Baixar Última Versão</button>
           </>
         )}
 
-        {document.versions && document.versions.length > 0 && (
+        {doc.versions && doc.versions.length > 0 && (
           <>
             <h3>Versões Anteriores</h3>
             <ul>
-              {document.versions.map((version) => (
+              {doc.versions.map((version, index) => (
                 <li key={version.fileId}>
                   <strong>File ID:</strong> {version.fileId} - <strong>Enviado em:</strong> {new Date(version.uploadedAt).toLocaleString()}
-                  <button onClick={() => handleDownload(version.fileId)}>Baixar</button>
+                  <button onClick={() => handleDownload(doc.id, index)}>Baixar</button>
                 </li>
               ))}
             </ul>
           </>
         )}
 
-        {document.shareHistory && document.shareHistory.length > 0 && (
+        {doc.shareHistory && doc.shareHistory.length > 0 && (
           <>
             <h3>Histórico de Compartilhamento</h3>
             <table>
@@ -92,7 +94,7 @@ const DocumentView = ({ token }) => {
                 </tr>
               </thead>
               <tbody>
-                {document.shareHistory.map((share) => (
+                {doc.shareHistory.map((share) => (
                   <tr key={share.emailId}>
                     <td>{share.email}</td>
                     <td>{share.permissionLevel}</td>
