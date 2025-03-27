@@ -11,6 +11,7 @@ import DocumentsList from './components/documents/DocumentList';
 import DocumentUpload from './components/documents/DocumentUpload';
 import DocumentView from './components/documents/DocumentView';
 import DocumentsListForMe from './components/documents/DocumentListForMe';
+import ErrorPage from './components/common/ErrorPage'
 import './components/styles/global.css';
 
 
@@ -45,6 +46,9 @@ function App() {
         <Route path='/documents/listAll/user' element={<DocumentsListForMe token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path='/documents/upload' element={<DocumentUpload token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path='/documents/view/:id' element={<DocumentView token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+
+        <Route path="/error/:status?" element={<ErrorPage token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path="*" element={<ErrorPage token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
       </Routes>
     </Router>
   );

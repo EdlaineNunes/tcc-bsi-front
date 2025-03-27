@@ -48,6 +48,11 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       .catch((error) => {
         console.error('Erro ao carregar usuário:', error);
         setError('Erro ao carregar usuário.');
+        if (error.response) {
+          navigate('/error/422');
+        } else {
+          navigate('/error/500');
+        }
       });
   }, [id, token]);
 

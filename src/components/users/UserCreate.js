@@ -38,6 +38,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       console.error('Erro ao criar usuário:', error);
       setError('Erro ao criar usuário.');
+      alert('Erro ao criar usuário')
     }
   };
 
