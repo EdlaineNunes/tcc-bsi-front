@@ -53,7 +53,7 @@ const RegisterUser = ({ token }) => {
         />
         <select onChange={(e) => setRole(e.target.value)} required>
           <option value="">Selecione a função</option>
-          <option value="GUEST">Usuário</option>
+          <option value="GUEST">Convidado</option>
         </select>
         <button type="submit">Cadastrar</button>
       </form>

@@ -1,27 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DocumentsList = ({ token }) => {
   const [documents, setDocuments] = useState([]);
-  console.log("Token DocumentList :: ", token);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/files/all-files', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        const response = await axios.get("http://localhost:8080/files/all-files", {
+          headers: { Authorization: `Bearer ${token}` },
         });
         setDocuments(response.data);
       } catch (error) {
-        console.error('Erro ao buscar documentos:', error);
+        console.error("Erro ao buscar documentos:", error);
+        if (error.response) {
+          navigate("/error", { state: { status: error.response.status } });
+        } else {
+          navigate("/error", { state: { status: "default" } });
+        }
       }
     };
 
     fetchDocuments();
-  }, [token]);
+  }, [token, navigate]);
 
   const handleDownload = async (id) => {
     try {
@@ -65,8 +68,12 @@ const DocumentsList = ({ token }) => {
               <td>{new Date(doc.createdAt).toLocaleString()}</td>
               <td>
                 <div className="action-buttons">
-                  <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
-                  <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>Baixar</button>
+                  <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">
+                    Detalhes
+                  </Link>
+                  <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>
+                    Baixar
+                  </button>
                 </div>
               </td>
             </tr>
@@ -75,8 +82,12 @@ const DocumentsList = ({ token }) => {
       </table>
 
       <div className="button-group">
-        <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
-        <Link to="/menu" className="btn btn-menu">MENU</Link>
+        <Link to="/documents/upload" className="btn btn-upload">
+          Upload Novo Documento
+        </Link>
+        <Link to="/menu" className="btn btn-menu">
+          MENU
+        </Link>
       </div>
     </div>
   );

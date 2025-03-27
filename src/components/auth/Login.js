@@ -1,10 +1,9 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Login.module.css';
 
-const Login = ({ setToken }) => {
+const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -18,13 +17,10 @@ const Login = ({ setToken }) => {
       );
 
       const token = response.data.token || response.data;
-      console.log("Token recebido:", token);
+      if (!token) throw new Error("Token não encontrado");
 
-      if (!token) {
-        throw new Error("Token não encontrado na resposta");
-      }
+      await onLoginSuccess(token); // Chama a função passando o token
 
-      setToken(token);
       alert('Login realizado com sucesso!');
       navigate('/menu');
     } catch (error) {
