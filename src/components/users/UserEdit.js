@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from '../styles/UserEdit.module.css';
 import Header from '../common/Header'
 
-const UserEdit = ({ token, userName, role }) => {
+const UserEdit = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,6 +22,13 @@ const UserEdit = ({ token, userName, role }) => {
     setPermissionLevel('');
     setCpf('');
     setActive(null);
+
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
 
     console.log("TokenUserEdit :: ", token);
 
@@ -65,7 +72,7 @@ const UserEdit = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles.editContainer}>
         <div className={styles.editCard}>
           <h2>Editar Usuário</h2>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/UserCreate.module.css';
 import Header from "../common/Header";
 
-const UserCreate = ({ token, userName, role }) => {
+const UserCreate = ({ token, userName, role, handleLogout }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,6 +14,13 @@ const UserCreate = ({ token, userName, role }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+      return;
+    }
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +43,7 @@ const UserCreate = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles.createContainer}>
         <div className={styles.createCard}>
           <h2>Criar Novo Usuário</h2>

@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../common/Header'
 
-const DocumentView = ({ token, userName, role }) => {
+const DocumentView = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
-  const [doc, setDoc] = useState(null); // Mudança de "document" para "doc"
+  const [doc, setDoc] = useState(null);
+  const navigate = useNavigate()
   console.log("Token DocumentView :: ", token);
 
   useEffect(() => {
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
     const fetchDocument = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/files/${id}`, {
@@ -52,7 +59,7 @@ const DocumentView = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className="container folha">
         <h2>Detalhes do Documento</h2>
         <div className="details-card">

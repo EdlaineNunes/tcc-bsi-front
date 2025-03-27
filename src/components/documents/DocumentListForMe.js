@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../common/Header'; // Importe o Header
 
-const DocumentsListForMe = ({ token, userName, role }) => {
+const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
   const [documents, setDocuments] = useState([]);
+  const navigate = useNavigate()
   console.log("Token DocumentListForMe :: ", token);
 
   useEffect(() => {
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
     const fetchDocuments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/files/my-files', {
@@ -48,7 +55,7 @@ const DocumentsListForMe = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
 
       <div className="container">
         <h2>Lista de Documentos</h2>

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/DocumentUpload.module.css';
 import Header from '../common/Header'
 
-const DocumentUpload = ({ token, userName, role }) => {
+const DocumentUpload = ({ token, userName, role, handleLogout }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   console.log("Token DocumentUpload :: ", token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/');
+      return;
+    }
+  })
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -42,7 +49,7 @@ const DocumentUpload = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles["upload-container"]}>
         <div className={styles["upload-card"]}>
           <h2>Upload de Documento</h2>

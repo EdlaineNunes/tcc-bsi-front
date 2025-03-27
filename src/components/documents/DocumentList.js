@@ -3,11 +3,17 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../common/Header";
 
-const DocumentsList = ({ token, userName, role }) => {
+const DocumentsList = ({ token, userName, role, handleLogout }) => {
   const [documents, setDocuments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
     const fetchDocuments = async () => {
       try {
         const response = await axios.get("http://localhost:8080/files/all-files", {
@@ -51,7 +57,7 @@ const DocumentsList = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className="container">
         <h2>Lista de Documentos</h2>
         <table className="table">

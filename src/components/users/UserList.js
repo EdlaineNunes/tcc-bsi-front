@@ -5,7 +5,7 @@ import axios from 'axios';
 import Header from "../common/Header";
 
 
-const UserList = ({ token, userName, role }) => {
+const UserList = ({ token, userName, role, handleLogout }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);  // Para gerenciar o estado de carregamento
   const [error, setError] = useState(null);     // Para capturar e exibir erros
@@ -17,7 +17,7 @@ const UserList = ({ token, userName, role }) => {
     if (!token) {
       setError('Token não encontrado. Faça login novamente.');
       setLoading(false);
-      console.log("cade o token mermao")
+      navigate('/')
       return;
     }
 
@@ -43,7 +43,7 @@ const UserList = ({ token, userName, role }) => {
 
   return (
     <div>
-      <Header userName={userName} role={role} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className="container">
         <h2>Lista de Usuários</h2>
         <div className="table-container">

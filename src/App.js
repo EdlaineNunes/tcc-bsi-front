@@ -38,13 +38,13 @@ function App() {
         <Route path="/" element={<Login setToken={handleLogin} />} />
         <Route path="/register" element={<RegisterUser setToken={handleLogin} />} />
         <Route path='/menu' element={<Menu token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
-        <Route path='/users/listAll' element={<UsersList token={token} userName={userName} role={role} />} />
-        <Route path='/users/edit/:id' element={<UserEdit token={token} userName={userName} role={role} />} />
-        <Route path='/users/create' element={<UserCreate token={token} userName={userName} role={role} />} />
-        <Route path='/documents/listAll' element={<DocumentsList token={token} userName={userName} role={role} />} />
-        <Route path='/documents/listAll/user' element={<DocumentsListForMe token={token} userName={userName} role={role} />} />
-        <Route path='/documents/upload' element={<DocumentUpload token={token} userName={userName} role={role} />} />
-        <Route path='/documents/view/:id' element={<DocumentView token={token} userName={userName} role={role} />} />
+        <Route path='/users/listAll' element={<UsersList token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/users/edit/:id' element={<UserEdit token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/users/create' element={<UserCreate token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/documents/listAll' element={<DocumentsList token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/documents/listAll/user' element={<DocumentsListForMe token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/documents/upload' element={<DocumentUpload token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+        <Route path='/documents/view/:id' element={<DocumentView token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
       </Routes>
     </Router>
   );

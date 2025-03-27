@@ -19,8 +19,8 @@ const ErrorPage = () => {
         <div className="error-container">
             <h2>Erro {status}</h2>
             <p>{errorMessages[status] || errorMessages.default}</p>
-            <Link to="/menu" className="btn btn-menu">
-                Voltar ao Menu
+            <Link to="/" className="btn btn-menu">
+                Login
             </Link>
         </div>
     );

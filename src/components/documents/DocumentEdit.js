@@ -10,6 +10,12 @@ const DocumentEdit = ({ token }) => {
   const [filename, setFilename] = useState('');
 
   useEffect(() => {
+
+    if (!token) {
+      navigate('/');
+      return;
+    }
+
     axios.get(`http://localhost:8080/api/documents/${id}`)
       .then(response => setFilename(response.data.filename))
       .catch(error => console.error('Erro ao carregar documento:', error));
