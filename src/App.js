@@ -1,6 +1,6 @@
 // App.js
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/auth/Login';
 import RegisterUser from './components/auth/RegisterUser';
 import Menu from './components/Menu';
@@ -20,10 +20,16 @@ function App() {
   const [role, setRole] = useState('');
 
   const handleLogin = (receivedToken) => {
-    const decodedToken = JSON.parse(atob(receivedToken.split('.')[1])); // Decodifica o token JWT
+    const decodedToken = JSON.parse(atob(receivedToken.split('.')[1]));
     setToken(receivedToken);
-    setUserName(decodedToken.sub); // Nome do usuário
-    setRole(decodedToken.role); // Role do usuário (caso tenha no token)
+    setUserName(decodedToken.sub);
+    setRole(decodedToken.role);
+  };
+
+  const handleLogout = () => {
+    setToken('');
+    setUserName('');
+    setRole('');
   };
 
   return (
@@ -31,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login setToken={handleLogin} />} />
         <Route path="/register" element={<RegisterUser setToken={handleLogin} />} />
-        <Route path='/menu' element={<Menu token={token} userName={userName} role={role} />} />
+        <Route path='/menu' element={<Menu token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path='/users/listAll' element={<UsersList token={token} userName={userName} role={role} />} />
         <Route path='/users/edit/:id' element={<UserEdit token={token} userName={userName} role={role} />} />
         <Route path='/users/create' element={<UserCreate token={token} userName={userName} role={role} />} />

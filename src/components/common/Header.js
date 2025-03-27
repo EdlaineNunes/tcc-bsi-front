@@ -1,9 +1,17 @@
 // Header.js
 import React from 'react';
-import { FaUser } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaSignOutAlt } from 'react-icons/fa';
 import styles from '../styles/Header.module.css';
 
-const Header = ({ userName, role }) => {
+const Header = ({ userName, role, handleLogout }) => {
+    const navigate = useNavigate()
+
+    const handleLogoutClick = () => {
+        handleLogout()
+        navigate('/')
+    }
+
     return (
         <div className={styles.header}>
             <h1> DMS </h1>
@@ -14,6 +22,9 @@ const Header = ({ userName, role }) => {
                     <br />
                     <span className={styles.userRole}>({role})</span> {/* Exibindo o role */}
                 </div>
+                <button onClick={handleLogoutClick} className={styles.logoutButton}>
+                    <FaSignOutAlt className={styles.logoutIcon} /> {/* Ícone de logout */}
+                </button>
             </div>
         </div>
     );

@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import styles from './styles/Menu.module.css';
 import Header from './common/Header'; // Importando Header
 
-const Menu = ({ token, userName, role }) => {
+const Menu = ({ token, userName, role, handleLogout }) => {
   return (
     <div>
-      <Header userName={userName} role={role} /> {/* Passando o nome e o role */}
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
       <nav className={styles.navbar}>
         <h1>MENU</h1>
         <ul className={styles.menuList}>
