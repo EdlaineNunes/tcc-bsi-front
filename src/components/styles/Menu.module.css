@@ -1,12 +1,9 @@
+/* Menu.module.css */
 :root {
   --primary-color: #007bff;
-  /* Azul vibrante */
   --secondary-color: #0056b3;
-  /* Azul mais escuro */
   --button-hover-color: #3399ff;
-  /* Azul claro */
   --text-color: #ffffff;
-  /* Branco */
   --border-radius: 8px;
   --transition: 0.3s ease;
 }

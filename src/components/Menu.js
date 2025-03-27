@@ -1,18 +1,13 @@
+// Menu.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles/Menu.module.css';
+import Header from './common/Header'; // Importando Header
 
-const Menu = ({ token, userInfo }) => {
+const Menu = ({ token, userName, role }) => {
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        {userInfo ? (
-          <span>Usuário: {userInfo.name} | Permissão: {userInfo.role}</span>
-        ) : (
-          <span>Carregando informações...</span>
-        )}
-      </header>
-
+    <div>
+      <Header userName={userName} role={role} /> {/* Passando o nome e o role */}
       <nav className={styles.navbar}>
         <h1>MENU</h1>
         <ul className={styles.menuList}>

@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+// Header.js
+import React from 'react';
+import { FaUser } from 'react-icons/fa';
 import styles from '../styles/Header.module.css';
 
-const Header = () => {
-    const { userInfo } = useContext(AuthContext);
-
+const Header = ({ userName, role }) => {
     return (
-        <header className={styles.header}>
+        <div className={styles.header}>
             <div className={styles.userInfo}>
-                <span>{userInfo.name}</span> - <span>{userInfo.role}</span>
+                <FaUser className={styles.userIcon} />
+                <div className={styles.userDetails}>
+                    <span className={styles.userName}>{userName}</span>
+                    <span className={styles.userRole}>({role})</span> {/* Exibindo o role */}
+                </div>
             </div>
-        </header>
+        </div>
     );
 };
 

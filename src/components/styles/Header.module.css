@@ -1,13 +1,36 @@
+/* Header.module.css */
 .header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-color: #333;
+    background-color: #007bff;
+    padding: 10px;
     color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
+    display: flex;
+    justify-content: flex-end;
+    /* Alinha os itens à direita */
+    align-items: center;
 }
 
 .userInfo {
+    display: flex;
+    align-items: center;
+}
+
+.userIcon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.userDetails {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    /* Alinha o texto à direita */
+}
+
+.userName {
+    font-weight: bold;
+}
+
+.userRole {
     font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
 }
