@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/UserEdit.module.css';
+import Header from '../common/Header'
 
-const UserEdit = ({ token }) => {
+const UserEdit = ({ token, userName, role }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -63,67 +64,71 @@ const UserEdit = ({ token }) => {
   };
 
   return (
-    <div className={styles.editContainer}>
-      <div className={styles.editCard}>
-        <h2>Editar Usuário</h2>
+    <div>
+      <Header userName={userName} role={role} />
+      <div className={styles.editContainer}>
+        <div className={styles.editCard}>
+          <h2>Editar Usuário</h2>
 
-        {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
-        {success && <div className={`${styles.message} ${styles.success}`}>Usuário atualizado com sucesso!</div>}
+          {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+          {success && <div className={`${styles.message} ${styles.success}`}>Usuário atualizado com sucesso!</div>}
 
-        <form onSubmit={handleSubmit}>
-          <label>Nome</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+          <form onSubmit={handleSubmit}>
+            <label>Nome</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
 
-          <label>CPF</label>
-          <input
-            type="text"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            required
-          />
+            <label>CPF</label>
+            <input
+              type="text"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              required
+            />
 
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-          <label>Permissão</label>
-          <select
-            value={permissionLevel}
-            onChange={(e) => setPermissionLevel(e.target.value)}
-            required
-          >
-            <option value="GUEST">GUEST - Convidado</option>
-            <option value="USER">USER - Usuário comum</option>
-            <option value="ADMIN">ADMIN - Admin do sistema</option>
-            <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
-          </select>
+            <label>Permissão</label>
+            <select
+              value={permissionLevel}
+              onChange={(e) => setPermissionLevel(e.target.value)}
+              required
+            >
+              <option value="GUEST">GUEST - Convidado</option>
+              <option value="USER">USER - Usuário comum</option>
+              <option value="ADMIN">ADMIN - Admin do sistema</option>
+              <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
+            </select>
 
-          <label>Status</label>
-          <select
-            value={active}
-            onChange={(e) => setActive(e.target.value)}
-            required
-          >
-            <option value="true">Ativo</option>
-            <option value="false">Inativo</option>
-          </select>
+            <label>Status</label>
+            <select
+              value={active}
+              onChange={(e) => setActive(e.target.value)}
+              required
+            >
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
 
-          <div className={styles.buttonGroup}>
-            <button type="submit" className={styles.btn}>Salvar</button>
-            <Link to="/menu" className={styles.btn}>Voltar</Link>
-          </div>
-        </form>
+            <div className={styles.buttonGroup}>
+              <button type="submit" className={styles.btn}>Salvar</button>
+              <Link to="/menu" className={styles.btn}>Voltar</Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
   );
 };
 

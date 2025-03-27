@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../common/Header'; // Importe o Header
 
-const DocumentsListForMe = ({ token }) => {
+const DocumentsListForMe = ({ token, userName, role }) => {
   const [documents, setDocuments] = useState([]);
   console.log("Token DocumentListForMe :: ", token);
 
@@ -46,37 +47,41 @@ const DocumentsListForMe = ({ token }) => {
   };
 
   return (
-    <div className="container">
-      <h2>Lista de Documentos</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Data de Criação</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {documents.map((doc) => (
-            <tr key={doc.id}>
-              <td>{doc.id}</td>
-              <td>{doc.filename}</td>
-              <td>{new Date(doc.createdAt).toLocaleString()}</td>
-              <td>
-                <div className="action-buttons">
-                  <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
-                  <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>Baixar</button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      <Header userName={userName} role={role} />
 
-      <div className="button-group">
-        <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
-        <Link to="/menu" className="btn btn-menu">MENU</Link>
+      <div className="container">
+        <h2>Lista de Documentos</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Data de Criação</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {documents.map((doc) => (
+              <tr key={doc.id}>
+                <td>{doc.id}</td>
+                <td>{doc.filename}</td>
+                <td>{new Date(doc.createdAt).toLocaleString()}</td>
+                <td>
+                  <div className="action-buttons">
+                    <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
+                    <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>Baixar</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="button-group">
+          <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
+          <Link to="/menu" className="btn btn-menu">MENU</Link>
+        </div>
       </div>
     </div>
   );

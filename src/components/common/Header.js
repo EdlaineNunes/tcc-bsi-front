@@ -6,10 +6,12 @@ import styles from '../styles/Header.module.css';
 const Header = ({ userName, role }) => {
     return (
         <div className={styles.header}>
-            <div className={styles.userInfo}>
+            <h1> DMS </h1>
+            <div className={styles.headerContent}>
                 <FaUser className={styles.userIcon} />
                 <div className={styles.userDetails}>
                     <span className={styles.userName}>{userName}</span>
+                    <br />
                     <span className={styles.userRole}>({role})</span> {/* Exibindo o role */}
                 </div>
             </div>

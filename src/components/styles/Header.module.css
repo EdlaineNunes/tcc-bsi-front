@@ -1,36 +1,45 @@
-/* Header.module.css */
+:root {
+    --primary-color: #007bff;
+    --text-color: #ffffff;
+    --border-radius: 8px;
+}
+
 .header {
-    background-color: #007bff;
-    padding: 10px;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    padding: 10px 20px;
     display: flex;
     justify-content: flex-end;
-    /* Alinha os itens à direita */
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-image: url('https://via.placeholder.com/1500x500');
+    background-size: cover;
+    background-position: center;
+    height: 100px;
 }
 
-.userInfo {
+.header h1 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+}
+
+.headerContent {
     display: flex;
     align-items: center;
+    gap: 15px;
 }
 
-.userIcon {
-    margin-right: 10px;
-    font-size: 24px;
-}
-
-.userDetails {
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    /* Alinha o texto à direita */
-}
-
-.userName {
+.userName,
+.role {
+    font-size: 16px;
     font-weight: bold;
 }
 
-.userRole {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+body {
+    margin: 0;
+}
+
+.container {
+    padding-top: 120px;
 }

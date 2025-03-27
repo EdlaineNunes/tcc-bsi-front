@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../common/Header'
 
-const DocumentView = ({ token }) => {
+const DocumentView = ({ token, userName, role }) => {
   const { id } = useParams();
   const [doc, setDoc] = useState(null); // Mudança de "document" para "doc"
   console.log("Token DocumentView :: ", token);
@@ -50,70 +51,74 @@ const DocumentView = ({ token }) => {
   }
 
   return (
-    <div className="container folha">
-      <h2>Detalhes do Documento</h2>
-      <div className="details-card">
-        <p><strong>ID:</strong> {doc.id}</p>
-        <p><strong>Nome:</strong> {doc.filename}</p>
-        <p><strong>Email do Cliente:</strong> {doc.customerEmail}</p>
-        <p><strong>Data de Criação:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
+    <div>
+      <Header userName={userName} role={role} />
+      <div className="container folha">
+        <h2>Detalhes do Documento</h2>
+        <div className="details-card">
+          <p><strong>ID:</strong> {doc.id}</p>
+          <p><strong>Nome:</strong> {doc.filename}</p>
+          <p><strong>Email do Cliente:</strong> {doc.customerEmail}</p>
+          <p><strong>Data de Criação:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
 
-        {doc.latestVersion && (
-          <>
-            <h3>Última Versão</h3>
-            <p><strong>File ID:</strong> {doc.latestVersion.fileId}</p>
-            <p><strong>Enviado em:</strong> {new Date(doc.latestVersion.uploadedAt).toLocaleString()}</p>
-            <button onClick={() => handleDownload(doc.id, doc.versions.length - 1)}>Baixar Última Versão</button>
-          </>
-        )}
+          {doc.latestVersion && (
+            <>
+              <h3>Última Versão</h3>
+              <p><strong>File ID:</strong> {doc.latestVersion.fileId}</p>
+              <p><strong>Enviado em:</strong> {new Date(doc.latestVersion.uploadedAt).toLocaleString()}</p>
+              <button onClick={() => handleDownload(doc.id, doc.versions.length - 1)}>Baixar Última Versão</button>
+            </>
+          )}
 
-        {doc.versions && doc.versions.length > 0 && (
-          <>
-            <h3>Versões Anteriores</h3>
-            <ul>
-              {doc.versions.map((version, index) => (
-                <li key={version.fileId}>
-                  <strong>File ID:</strong> {version.fileId} - <strong>Enviado em:</strong> {new Date(version.uploadedAt).toLocaleString()}
-                  <button onClick={() => handleDownload(doc.id, index)}>Baixar</button>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-
-        {doc.shareHistory && doc.shareHistory.length > 0 && (
-          <>
-            <h3>Histórico de Compartilhamento</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Email</th>
-                  <th>Permissão</th>
-                  <th>Compartilhado Em</th>
-                  <th>Compartilhado Por</th>
-                </tr>
-              </thead>
-              <tbody>
-                {doc.shareHistory.map((share) => (
-                  <tr key={share.emailId}>
-                    <td>{share.email}</td>
-                    <td>{share.permissionLevel}</td>
-                    <td>{new Date(share.sharedAt).toLocaleString()}</td>
-                    <td>{share.sharedBy}</td>
-                  </tr>
+          {doc.versions && doc.versions.length > 0 && (
+            <>
+              <h3>Versões Anteriores</h3>
+              <ul>
+                {doc.versions.map((version, index) => (
+                  <li key={version.fileId}>
+                    <strong>File ID:</strong> {version.fileId} - <strong>Enviado em:</strong> {new Date(version.uploadedAt).toLocaleString()}
+                    <button onClick={() => handleDownload(doc.id, index)}>Baixar</button>
+                  </li>
                 ))}
-              </tbody>
-            </table>
-          </>
-        )}
+              </ul>
+            </>
+          )}
 
-        <br />
-        <div className="button-group">
-          <Link to="/documents/listAll">Voltar para Lista</Link>
-          <Link to="/menu">MENU</Link>
+          {doc.shareHistory && doc.shareHistory.length > 0 && (
+            <>
+              <h3>Histórico de Compartilhamento</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Permissão</th>
+                    <th>Compartilhado Em</th>
+                    <th>Compartilhado Por</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {doc.shareHistory.map((share) => (
+                    <tr key={share.emailId}>
+                      <td>{share.email}</td>
+                      <td>{share.permissionLevel}</td>
+                      <td>{new Date(share.sharedAt).toLocaleString()}</td>
+                      <td>{share.sharedBy}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
+
+          <br />
+          <div className="button-group">
+            <Link to="/documents/listAll">Voltar para Lista</Link>
+            <Link to="/menu">MENU</Link>
+          </div>
         </div>
       </div>
     </div>
+
   );
 };
 

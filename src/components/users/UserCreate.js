@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/UserCreate.module.css';
+import Header from "../common/Header";
 
-const UserCreate = ({ token }) => {
+const UserCreate = ({ token, userName, role }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -34,81 +35,85 @@ const UserCreate = ({ token }) => {
   };
 
   return (
-    <div className={styles.createContainer}>
-      <div className={styles.createCard}>
-        <h2>Criar Novo Usuário</h2>
+    <div>
+      <Header userName={userName} role={role} />
+      <div className={styles.createContainer}>
+        <div className={styles.createCard}>
+          <h2>Criar Novo Usuário</h2>
 
-        {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
-        {success && <div className={`${styles.message} ${styles.success}`}>Usuário criado com sucesso!</div>}
+          {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+          {success && <div className={`${styles.message} ${styles.success}`}>Usuário criado com sucesso!</div>}
 
-        <form onSubmit={handleSubmit}>
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            placeholder="Digite o e-mail"
-          />
+          <form onSubmit={handleSubmit}>
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Digite o e-mail"
+            />
 
-          <label>Nome</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            placeholder="Digite o nome"
-          />
+            <label>Nome</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              placeholder="Digite o nome"
+            />
 
-          <label>Senha</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Digite a senha"
-          />
+            <label>Senha</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Digite a senha"
+            />
 
-          <label>CPF</label>
-          <input
-            type="text"
-            value={cpf}
-            onChange={(e) => setCpf(e.target.value)}
-            required
-            placeholder="Digite o CPF"
-          />
+            <label>CPF</label>
+            <input
+              type="text"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              required
+              placeholder="Digite o CPF"
+            />
 
-          <label>Permissão</label>
-          <select
-            value={permissionLevel}
-            onChange={(e) => setPermissionLevel(e.target.value)}
-            required
-          >
-            <option value="">Selecione...</option>
-            <option value="GUEST">GUEST - Convidado</option>
-            <option value="USER">USER - Usuário comum</option>
-            <option value="ADMIN">ADMIN - Admin do sistema</option>
-            <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
-          </select>
+            <label>Permissão</label>
+            <select
+              value={permissionLevel}
+              onChange={(e) => setPermissionLevel(e.target.value)}
+              required
+            >
+              <option value="">Selecione...</option>
+              <option value="GUEST">GUEST - Convidado</option>
+              <option value="USER">USER - Usuário comum</option>
+              <option value="ADMIN">ADMIN - Admin do sistema</option>
+              <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
+            </select>
 
-          <label>Status</label>
-          <select
-            value={active}
-            onChange={(e) => setActive(e.target.value === 'true')}
-            required
-          >
-            <option value="">Selecione...</option>
-            <option value="true">Ativo</option>
-            <option value="false">Inativo</option>
-          </select>
+            <label>Status</label>
+            <select
+              value={active}
+              onChange={(e) => setActive(e.target.value === 'true')}
+              required
+            >
+              <option value="">Selecione...</option>
+              <option value="true">Ativo</option>
+              <option value="false">Inativo</option>
+            </select>
 
-          <div className={styles.buttonGroup}>
-            <button type="submit" className={styles.btn}>Criar Usuário</button>
-            <Link to="/menu" className={`${styles.btn}`}>Voltar ao Menu</Link>
-          </div>
-        </form>
+            <div className={styles.buttonGroup}>
+              <button type="submit" className={styles.btn}>Criar Usuário</button>
+              <Link to="/menu" className={`${styles.btn}`}>Voltar ao Menu</Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
   );
 };
 

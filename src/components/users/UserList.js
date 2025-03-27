@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from "../common/Header";
 
-const UserList = ({ token }) => {
+
+const UserList = ({ token, userName, role }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);  // Para gerenciar o estado de carregamento
   const [error, setError] = useState(null);     // Para capturar e exibir erros
@@ -40,47 +42,51 @@ const UserList = ({ token }) => {
   if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
-    <div className="container">
-      <h2>Lista de Usuários</h2>
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>CPF</th>
-              <th>Email</th>
-              <th>Permissão</th>
-              <th>Ativo</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.username}</td>
-                <td>{user.cpf}</td>
-                <td>{user.email}</td>
-                <td>{user.permissionLevel}</td>
-                <td>{user.active ? "✅" : "❌"}</td>
-                <td>
-                  <button
-                    className="btn-detail"
-                    onClick={() => navigate(`/users/edit/${user.id}`)}
-                  >
-                    Editar
-                  </button>
-                </td>
+    <div>
+      <Header userName={userName} role={role} />
+      <div className="container">
+        <h2>Lista de Usuários</h2>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Permissão</th>
+                <th>Ativo</th>
+                <th>Ações</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="button-group">
-        <Link to="/menu" className="btn-menu">Voltar</Link>
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.username}</td>
+                  <td>{user.cpf}</td>
+                  <td>{user.email}</td>
+                  <td>{user.permissionLevel}</td>
+                  <td>{user.active ? "✅" : "❌"}</td>
+                  <td>
+                    <button
+                      className="btn-detail"
+                      onClick={() => navigate(`/users/edit/${user.id}`)}
+                    >
+                      Editar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="button-group">
+          <Link to="/menu" className="btn-menu">Voltar</Link>
+        </div>
       </div>
     </div>
+
   );
 };
 

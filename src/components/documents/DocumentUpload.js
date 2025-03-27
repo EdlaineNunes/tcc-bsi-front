@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/DocumentUpload.module.css';
+import Header from '../common/Header'
 
-const DocumentUpload = ({ token }) => {
+const DocumentUpload = ({ token, userName, role }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   console.log("Token DocumentUpload :: ", token);
@@ -40,24 +41,28 @@ const DocumentUpload = ({ token }) => {
   };
 
   return (
-    <div className={styles["upload-container"]}>
-      <div className={styles["upload-card"]}>
-        <h2>Upload de Documento</h2>
-        <form onSubmit={handleUpload}>
-          <input type="file" onChange={handleFileChange} />
-          <div className={styles["button-group"]}>
-            <button type="submit" className={`btn ${styles["btn-upload"]}`}>Enviar</button>
-            <button
-              type="button"
-              onClick={() => navigate('/menu')}
-              className={`btn ${styles["btn-menu"]}`}
-            >
-              Cancelar
-            </button>
-          </div>
-        </form>
+    <div>
+      <Header userName={userName} role={role} />
+      <div className={styles["upload-container"]}>
+        <div className={styles["upload-card"]}>
+          <h2>Upload de Documento</h2>
+          <form onSubmit={handleUpload}>
+            <input type="file" onChange={handleFileChange} />
+            <div className={styles["button-group"]}>
+              <button type="submit" className={`btn ${styles["btn-upload"]}`}>Enviar</button>
+              <button
+                type="button"
+                onClick={() => navigate('/menu')}
+                className={`btn ${styles["btn-menu"]}`}
+              >
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
   );
 };
 
