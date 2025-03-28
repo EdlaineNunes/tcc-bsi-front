@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../common/Header'
-import { FaDownload, FaUpload, FaBars, FaThList, FaInfoCircle } from 'react-icons/fa';
+import Header from '../common/Header';
+import { FaDownload, FaUpload, FaBars, FaThList, FaInfoCircle, FaTrashAlt } from 'react-icons/fa';
 
 const DocumentView = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
   const [doc, setDoc] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   console.log("Token DocumentView :: ", token);
 
   useEffect(() => {
-
     if (!token) {
       navigate('/');
       return;
@@ -33,7 +32,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
   }, [id, token]);
 
   const handleDownload = async (documentId, versionIndex, fileName) => {
-    console.log("filename --> ", fileName)
+    console.log("filename --> ", fileName);
     try {
       const response = await axios.get(`http://localhost:8080/files/download-version/${documentId}/${versionIndex}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -51,6 +50,22 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
       alert('Erro ao baixar o documento.');
+    }
+  };
+
+  const handleDelete = async (documentId) => {
+    const confirmDelete = window.confirm("Tem certeza que deseja excluir este documento permanentemente? A exclusão é irreversível.");
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:8080/files/delete/${documentId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert('Documento excluído com sucesso!');
+        navigate('/documents/listAll');
+      } catch (error) {
+        console.error('Erro ao excluir documento:', error);
+        alert('Erro ao excluir o documento.');
+      }
     }
   };
 
@@ -156,6 +171,19 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
             </>
           )}
 
+          {/* Exibição do botão de excluir apenas para SUPER_ADMIN */}
+          {role === 'SUPER_ADMIN' && (
+            <div className="delete-button-container">
+              <button
+                onClick={() => handleDelete(doc.id)}
+                className="delete-button"
+              >
+                <FaTrashAlt style={{ marginRight: '10px' }} />
+                Excluir Registro
+              </button>
+            </div>
+          )}
+
           <br />
           <div className="button-group">
             <Link to="/documents/listAll">
@@ -170,7 +198,6 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
         </div>
       </div>
     </div>
-
   );
 };
 
