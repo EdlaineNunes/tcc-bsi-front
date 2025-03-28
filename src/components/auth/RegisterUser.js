@@ -10,6 +10,7 @@ const RegisterUser = ({ token }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');  // Novo estado para a confirmação de senha
   const [role, setRole] = useState('');
   const [cpf, setCpf] = useState('');
   const [active, setActive] = useState('');
@@ -19,6 +20,14 @@ const RegisterUser = ({ token }) => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Verifica se as senhas são iguais
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem.');
+      setSuccess(false);
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8080/auth/register', {
         email,
@@ -29,7 +38,7 @@ const RegisterUser = ({ token }) => {
         active
       });
       setSuccess(true);
-      alert("Usuário registrado com sucesso! Você será redirecionado ao login.", password)
+      alert("Usuário registrado com sucesso! Você será redirecionado ao login.");
       setTimeout(() => history('/'), 2000);
     } catch (error) {
       console.error('Erro ao registrar:', error);
@@ -79,6 +88,19 @@ const RegisterUser = ({ token }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Senha"
+              required
+            />
+          </div>
+        </div>
+
+        <div className={styles.inputGroup}>
+          <FaLock className={styles.icon} />
+          <div className={styles.inputWithIcon}>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirmar Senha"
               required
             />
           </div>

@@ -9,6 +9,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');  // Novo estado para a confirmação de senha
   const [permissionLevel, setPermissionLevel] = useState('');
   const [cpf, setCpf] = useState('');
   const [active, setActive] = useState('');
@@ -21,11 +22,18 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
       navigate('/');
       return;
     }
-  })
+  }, [token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("TokenUserCreate :: ", token);
+
+    // Verifica se as senhas são iguais
+    if (password !== confirmPassword) {
+      setError('As senhas não coincidem.');
+      setSuccess(false);
+      return;
+    }
+
     const newUser = { email, username, password, permissionLevel, cpf, active };
 
     try {
@@ -39,7 +47,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       console.error('Erro ao criar usuário:', error);
       setError('Erro ao criar usuário.');
-      alert('Erro ao criar usuário')
+      alert('Erro ao criar usuário');
     }
   };
 
@@ -79,6 +87,15 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Digite a senha"
+            />
+
+            <label>Confirmar Senha</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              placeholder="Confirme a senha"
             />
 
             <label>CPF</label>
@@ -132,7 +149,6 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
         </div>
       </div>
     </div>
-
   );
 };
 
