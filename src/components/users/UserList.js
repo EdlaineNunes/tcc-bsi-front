@@ -1,157 +1,135 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../common/Header';
-import styles from '../styles/UserProfile.module.css';
-import { FaEdit, FaBars, FaRegUserCircle, FaUserEdit, FaXRay } from 'react-icons/fa';
+import Header from "../common/Header";
+import { FaThList, FaEdit, FaBars, FaSearch, FaFilter } from 'react-icons/fa';
 
-const UserProfile = ({ token, userId }) => {
-  const [userData, setUserData] = useState(null);
+const UserList = ({ token, userName, role, handleLogout }) => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [showChangePasswordForm, setShowChangePasswordForm] = useState(false);
-  const [passwordError, setPasswordError] = useState('');
-  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [filterStatus, setFilterStatus] = useState("all"); // Estado do filtro de status
+  const [searchQuery, setSearchQuery] = useState(""); // Estado da busca pelo nome
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) {
-      setError('ID do usuário não encontrado.');
+    if (!token) {
+      setError('Token não encontrado. Faça login novamente.');
+      setLoading(false);
+      navigate('/');
       return;
     }
 
-    axios.get(`http://localhost:8080/users/${userId}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+    axios.get('http://localhost:8080/users/', {
+      headers: { "Authorization": `Bearer ${token}` }
     })
-      .then((response) => setUserData(response.data))
-      .catch((err) => {
-        setError('Erro ao carregar os dados do usuário');
-        console.error(err);
-      });
-  }, [token, userId]);
-
-  const handleChangePassword = async (e) => {
-    e.preventDefault();
-
-    // Verifica se as senhas são iguais
-    if (password !== confirmPassword) {
-      setPasswordError('As senhas não coincidem.');
-      setPasswordSuccess('');
-      return;
-    }
-
-    try {
-      const response = await axios.put(
-        `http://localhost:8080/users/${userId}`,
-        password,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
+      .then(response => {
+        setUsers(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar usuários:", error);
+        setError("Erro ao carregar usuários.");
+        if (error.response) {
+          navigate('/error', { state: { status: error.response.status } });
+        } else {
+          navigate('/error', { state: { status: 'default' } });
         }
-      );
-      if (response.status === 200) {
-        setPasswordSuccess('Senha alterada com sucesso!');
-        setPasswordError('');
-        setShowChangePasswordForm(false);  // Fecha o formulário após sucesso
-      }
-    } catch (error) {
-      setPasswordError('Erro ao alterar a senha.');
-      setPasswordSuccess('');
-    }
+        setLoading(false);
+      });
+  }, [token, navigate]);
+
+  const handleFilterChange = (event) => {
+    setFilterStatus(event.target.value);
   };
 
-  if (error) return <div className="error-message">{error}</div>;
-  if (!userData) return <div className="error-message">Carregando...</div>;
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filtrar usuários com base na opção de status e nome
+  const filteredUsers = users.filter(user => {
+    const matchesStatus = filterStatus === "all" || (filterStatus === "active" ? user.active : !user.active);
+    const matchesSearchQuery = user.username.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesStatus && matchesSearchQuery;
+  });
+
+  if (loading) return <div>Carregando usuários...</div>;
+  if (error) return <div style={{ color: 'red' }}>{error}</div>;
 
   return (
     <div>
-      <Header userName={userData.username} role={userData.role} handleLogout={() => { }} />
+      <Header userName={userName} role={role} handleLogout={handleLogout} />
+      <div className="container">
+        <h2><FaThList style={{ marginRight: '10px' }} />Lista de Usuários</h2>
 
-      <div className={styles.userProfileContainer}>
-        <div className={styles.profileCardContainer}>
-          <h1 style={{ color: '#007bff' }}>
-            <FaRegUserCircle style={{ marginRight: '10px' }} />
-            Meu Perfil
-          </h1>
-          <div className={styles.detailsCard}>
-            <p><strong>Nome:</strong> {userData.username}</p>
-            <p><strong>Email:</strong> {userData.email}</p>
-            <p><strong>Permissão:</strong> {userData.permissionLevel}</p>
-            <p><strong>Status:</strong> {userData.active ? 'Ativo' : 'Inativo'}</p>
-          </div>
-          <div className={styles.userProfileButtonGroup}>
-            <button onClick={() => navigate(`/users/edit/${userId}`)} className="btn">
-              <FaUserEdit style={{ marginRight: '10px' }} />
-              Editar Perfil
-            </button>
-            <button onClick={() => setShowChangePasswordForm(true)} className="btn">
-              <FaEdit style={{ marginRight: '10px' }} />
-              Alterar Senha
-            </button>
-            <button onClick={() => navigate(`/menu`)} className="btn">
-              <FaBars style={{ marginRight: '10px' }} />
-              MENU
-            </button>
-          </div>
+        {/* Filtro abaixo do título e acima da tabela */}
+        <div className="filter-container">
+          <label htmlFor="search">
+            <FaSearch style={{ marginRight: '10px' }} />
+            Buscar por nome:
+          </label>
+          <input
+            type="text"
+            id="search"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Digite o nome do usuário"
+          />
+          <label htmlFor="filter">
+            <FaFilter style={{ marginRight: '10px' }} />
+            Filtrar por status:
+          </label>
+          <select id="filter" value={filterStatus} onChange={handleFilterChange}>
+            <option value="all">Todos</option>
+            <option value="active">Ativos</option>
+            <option value="inactive">Inativos</option>
+          </select>
+        </div>
 
-          {/* Formulário de alteração de senha */}
-          {showChangePasswordForm && (
-            <div className={styles.changePasswordForm}>
-              <h2>
-                <FaEdit style={{ marginRight: '10px' }} />
-                Alterar Senha
-              </h2>
-              {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
-              {passwordSuccess && <div className={styles.successMessage}>{passwordSuccess}</div>}
-              <form onSubmit={handleChangePassword}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="password">Nova Senha</label>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Email</th>
+                <th>Permissão</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredUsers.map(user => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.username}</td>
+                  <td>{user.cpf}</td>
+                  <td>{user.email}</td>
+                  <td>{user.permissionLevel}</td>
+                  <td>{user.active ? "✅" : "❌"}</td>
+                  <td>
+                    <button className="btn-detail" onClick={() => navigate(`/users/edit/${user.id}`)}>
+                      <FaEdit style={{ marginRight: '10px' }} />
+                      Editar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-                <div className={styles.formGroup}>
-                  <label htmlFor="confirmPassword">Confirmar Senha</label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                  />
-                </div>
-
-                {/* Botões lado a lado */}
-                <div className={styles.userProfileButtonGroup}>
-                  <button type="submit" className="btn">
-                    <FaEdit style={{ marginRight: '10px' }} />
-                    Alterar Senha
-                  </button>
-                  <button
-                    type="button"
-                    className="btn"
-                    onClick={() => setShowChangePasswordForm(false)}
-                  >
-                    <FaXRay style={{ marginRight: '10px' }} />
-                    Cancelar
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
+        <div className="button-group">
+          <Link to="/menu" className="btn-menu">
+            <FaBars style={{ marginRight: '10px' }} />
+            MENU
+          </Link>
         </div>
       </div>
     </div>
   );
 };
 
-export default UserProfile;
+export default UserList;
