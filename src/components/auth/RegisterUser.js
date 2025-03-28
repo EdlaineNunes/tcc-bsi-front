@@ -98,8 +98,7 @@ const RegisterUser = ({ token }) => {
 
         <div className={styles.inputGroup}>
           <select onChange={(e) => setRole(e.target.value)} required>
-            <option value="">Selecione a função</option>
-            <option value="GUEST">Convidado</option>
+            <option value="GUEST">Permissão: Convidado</option>
           </select>
         </div>
 
@@ -109,9 +108,7 @@ const RegisterUser = ({ token }) => {
             onChange={(e) => setActive(e.target.value === 'true')}
             required
           >
-            <option value="">Selecione o status</option>
-            <option value="true">Ativo</option>
-            <option value="false">Inativo</option>
+            <option value="true">Status: Ativo</option>
           </select>
         </div>
 

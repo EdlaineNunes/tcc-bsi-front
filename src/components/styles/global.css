@@ -289,3 +289,35 @@ select:focus {
 .action-button-view:hover {
     background-color: #0056b3;
 }
+
+/* Filtro de Usuários */
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.filter-container label {
+    font-weight: bold;
+    color: var(--primary-color);
+    white-space: nowrap;
+}
+
+.filter-container select {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 16px;
+    background-color: #fff;
+    transition: border-color var(--transition);
+}
+
+.filter-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+}

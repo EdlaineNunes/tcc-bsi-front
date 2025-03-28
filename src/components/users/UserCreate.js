@@ -114,16 +114,19 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
               <option value="false">Inativo</option>
             </select>
 
-            <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.btn}>
-                <FaUserPlus style={{ marginRight: '10px' }} />
-                Criar Usuário
-              </button>
-              <Link to="/menu" className={`${styles.btn}`}>
-                <FaBars style={{ marginRight: '10px' }} />
-                MENU
-              </Link>
+            <div className={styles.containerbtn}>
+              <div className="button-group">
+                <button type="submit" className="btn btn-upload">
+                  <FaUserPlus style={{ marginRight: '10px' }} />
+                  Criar Usuário
+                </button>
+                <Link to="/menu" className="btn btn-menu">
+                  <FaBars style={{ marginRight: '10px' }} />
+                  MENU
+                </Link>
+              </div>
             </div>
+
           </form>
         </div>
       </div>
