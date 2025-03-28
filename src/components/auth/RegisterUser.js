@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Register.module.css';
 import { FaUser, FaEnvelope, FaLock, FaIdCard, FaRegUserCircle } from 'react-icons/fa';
+import CPFInput from "../common/CPFInput";
+
 
 const RegisterUser = ({ token }) => {
   const [email, setEmail] = useState('');
@@ -15,12 +17,10 @@ const RegisterUser = ({ token }) => {
   const [success, setSuccess] = useState(false);
   const history = useNavigate();
 
-  console.log("Token :: ", token);
-
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8080/register', {
+      const response = await axios.post('http://localhost:8080/auth/register', {
         email,
         password,
         role,
@@ -29,7 +29,8 @@ const RegisterUser = ({ token }) => {
         active
       });
       setSuccess(true);
-      setTimeout(() => history('/login'), 2000);
+      alert("Usuário registrado com sucesso! Você será redirecionado ao login.", password)
+      setTimeout(() => history('/'), 2000);
     } catch (error) {
       console.error('Erro ao registrar:', error);
       setError('Erro ao realizar o cadastro.');
@@ -86,32 +87,9 @@ const RegisterUser = ({ token }) => {
         <div className={styles.inputGroup}>
           <FaIdCard className={styles.icon} />
           <div className={styles.inputWithIcon}>
-            <input
-              type="text"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              placeholder="CPF"
-              required
-            />
+            <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
           </div>
         </div>
-
-        <div className={styles.inputGroup}>
-          <select onChange={(e) => setRole(e.target.value)} required>
-            <option value="GUEST">Permissão: Convidado</option>
-          </select>
-        </div>
-
-        <div className={styles.inputGroup}>
-          <select
-            value={active}
-            onChange={(e) => setActive(e.target.value === 'true')}
-            required
-          >
-            <option value="true">Status: Ativo</option>
-          </select>
-        </div>
-
         <button type="submit">Cadastrar</button>
       </form>
 

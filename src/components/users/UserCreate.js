@@ -99,6 +99,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
               <option value="">Selecione...</option>
               <option value="GUEST">GUEST - Convidado</option>
               <option value="USER">USER - Usuário comum</option>
+              <option value="COUNTER">COUNTER - Contador</option>
               <option value="ADMIN">ADMIN - Admin do sistema</option>
               <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
             </select>

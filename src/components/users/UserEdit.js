@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/UserEdit.module.css';
-import Header from '../common/Header'
+import Header from '../common/Header';
 import { FaSave, FaEdit, FaBars } from 'react-icons/fa';
+import CPFInput from "../common/CPFInput";
 
 const UserEdit = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
   const [permissionLevel, setPermissionLevel] = useState('');
   const [cpf, setCpf] = useState('');
   const [error, setError] = useState(null);
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState(false);
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -22,14 +23,12 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
     setUsername('');
     setPermissionLevel('');
     setCpf('');
-    setActive(null);
-
+    setActive(false);
 
     if (!token) {
       navigate('/');
       return;
     }
-
 
     console.log("TokenUserEdit :: ", token);
 
@@ -60,7 +59,12 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const updatedUser = { email, username, permissionLevel, active };
+    const updatedUser = {
+      email,
+      username,
+      permissionLevel,
+      cpf,
+    };
 
     try {
       await axios.put(`http://localhost:8080/users/${id}`, updatedUser, {
@@ -73,6 +77,24 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       setError('Erro ao editar usuário.');
       console.error('Erro ao editar usuário:', error);
+    }
+  };
+
+  const handleChangeStatus = async (status) => {
+    try {
+      const url = `http://localhost:8080/users/${id}/${status ? 'enable' : 'disable'}`;
+
+      await axios.put(url, {}, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+
+      setActive(status); // Atualiza o estado de 'active' conforme o novo status
+      alert(`Usuário ${status ? 'ativado' : 'desativado'} com sucesso!`);
+    } catch (error) {
+      console.error('Erro ao alterar status:', error);
+      setError('Erro ao alterar status do usuário.');
     }
   };
 
@@ -96,12 +118,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
             />
 
             <label>CPF</label>
-            <input
-              type="text"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              required
-            />
+            <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
 
             <label>Email</label>
             <input
@@ -119,19 +136,25 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
             >
               <option value="GUEST">GUEST - Convidado</option>
               <option value="USER">USER - Usuário comum</option>
+              <option value="COUNTER">COUNTER - Contador</option>
               <option value="ADMIN">ADMIN - Admin do sistema</option>
               <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
             </select>
 
             <label>Status</label>
-            <select
-              value={active}
-              onChange={(e) => setActive(e.target.value)}
-              required
-            >
-              <option value="true">Ativo</option>
-              <option value="false">Inativo</option>
-            </select>
+            <div className={styles.toggleContainer}>
+              <label className={styles.switch}>
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={(e) => handleChangeStatus(e.target.checked)}
+                />
+                <span className={styles.slider}></span>
+              </label>
+              <span className={styles.statusLabel}>
+                {active ? 'Usuário Ativo' : 'Usuário Inativo'}
+              </span>
+            </div>
 
             <div className={styles.buttonGroup}>
               <button type="submit" className={styles.btn}>
@@ -147,7 +170,6 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
         </div>
       </div>
     </div>
-
   );
 };
 

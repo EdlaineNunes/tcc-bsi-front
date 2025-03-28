@@ -38,7 +38,6 @@ h2 .icon {
     margin-right: 10px;
     font-size: 32px;
     color: black
-        /* Ajusta o tamanho do ícone */
 }
 
 form {
@@ -61,14 +60,12 @@ form {
     width: 100%;
     padding: 12px;
     padding-left: 40px;
-    /* Espaço para o ícone */
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     outline: none;
     transition: border-color var(--transition);
     box-sizing: border-box;
-    /* Garante que o padding não afete o tamanho total */
 }
 
 .inputWithIcon input:focus {
@@ -93,7 +90,6 @@ select {
     outline: none;
     transition: border-color var(--transition);
     box-sizing: border-box;
-    /* Garante que o padding não afete o tamanho total */
 }
 
 select:focus {
@@ -111,7 +107,6 @@ button {
     cursor: pointer;
     transition: background-color var(--transition), transform var(--transition);
     width: 100%;
-    /* Garante que o botão ocupe toda a largura disponível */
 }
 
 button:hover {
@@ -150,7 +145,6 @@ button:active {
     cursor: pointer;
     transition: background-color var(--transition);
     width: 100%;
-    /* Garante que o botão ocupe toda a largura disponível */
 }
 
 .back-button:hover {

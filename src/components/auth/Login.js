@@ -29,7 +29,7 @@ const Login = ({ setToken }) => {
       alert('Login realizado com sucesso!');
       navigate('/menu');
     } catch (error) {
-      console.error('Erro no login:', error);
+      console.error('Erro no login:', email, password, error);
       alert('Login falhou. Verifique suas credenciais.');
     }
   };
