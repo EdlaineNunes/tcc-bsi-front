@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/auth/Login';
@@ -12,20 +11,22 @@ import DocumentUpload from './components/documents/DocumentUpload';
 import DocumentUpdate from './components/documents/DocumentUpdate';
 import DocumentView from './components/documents/DocumentView';
 import DocumentsListForMe from './components/documents/DocumentListForMe';
-import ErrorPage from './components/common/ErrorPage'
+import ErrorPage from './components/common/ErrorPage';
+import UserProfile from './components/users/UserProfile'; // Importando o componente de perfil
 import './components/styles/global.css';
-
 
 function App() {
   const [token, setToken] = useState('');
   const [userName, setUserName] = useState('');
   const [role, setRole] = useState('');
+  const [userId, setUserId] = useState('')
 
   const handleLogin = (receivedToken) => {
     const decodedToken = JSON.parse(atob(receivedToken.split('.')[1]));
     setToken(receivedToken);
     setUserName(decodedToken.sub);
     setRole(decodedToken.role);
+    setUserId(decodedToken.userId)
   };
 
   const handleLogout = () => {
@@ -50,6 +51,8 @@ function App() {
         <Route path='/documents/upload' element={<DocumentUpload token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path='/documents/view/:id' element={<DocumentView token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path='/documents/update/:id' element={<DocumentUpdate token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
+
+        <Route path="/profile" element={<UserProfile token={token} userName={userName} role={role} handleLogout={handleLogout} userId={userId} />} />
 
         <Route path="/error/:status?" element={<ErrorPage token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
         <Route path="*" element={<ErrorPage token={token} userName={userName} role={role} handleLogout={handleLogout} />} />
