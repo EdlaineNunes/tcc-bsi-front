@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Login.module.css';
+import { FaEnvelope, FaLock, FaSignInAlt, FaUsers } from 'react-icons/fa';
 
 const Login = ({ setToken }) => {
   const [email, setEmail] = useState('');
@@ -40,27 +41,45 @@ const Login = ({ setToken }) => {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h2>Login</h2>
+        <h2>
+          <FaUsers style={{ marginRight: '8px' }} /> Login
+        </h2>
         <form onSubmit={handleLogin}>
-          <label className={styles.label}>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={styles.input}
-            required
-          />
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>
+              <FaEnvelope className={styles.icon} />
+              Email:
+            </label>
+            <div className={styles.inputWithIcon}>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={styles.input}
+                required
+              />
+            </div>
+          </div>
 
-          <label className={styles.label}>Senha:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
-            required
-          />
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>
+              <FaLock className={styles.icon} />
+              Senha:
+            </label>
+            <div className={styles.inputWithIcon}>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
+                required
+              />
+            </div>
+          </div>
 
-          <button type="submit" className={styles.button}>Entrar</button>
+          <button type="submit" className={styles.button}>
+            <FaSignInAlt style={{ marginRight: '8px' }} /> Entrar
+          </button>
         </form>
         <button
           onClick={handleRegisterRedirect}

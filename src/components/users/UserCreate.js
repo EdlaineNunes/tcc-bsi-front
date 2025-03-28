@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/UserCreate.module.css';
 import Header from "../common/Header";
+import { FaBars, FaUserPlus } from 'react-icons/fa';
 
 const UserCreate = ({ token, userName, role, handleLogout }) => {
   const [email, setEmail] = useState('');
@@ -47,7 +48,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
       <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles.createContainer}>
         <div className={styles.createCard}>
-          <h2>Criar Novo Usuário</h2>
+          <h2><FaUserPlus style={{ marginRight: '10px' }} />Criar Novo Usuário</h2>
 
           {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
           {success && <div className={`${styles.message} ${styles.success}`}>Usuário criado com sucesso!</div>}
@@ -114,8 +115,14 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
             </select>
 
             <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.btn}>Criar Usuário</button>
-              <Link to="/menu" className={`${styles.btn}`}>Voltar ao Menu</Link>
+              <button type="submit" className={styles.btn}>
+                <FaUserPlus style={{ marginRight: '10px' }} />
+                Criar Usuário
+              </button>
+              <Link to="/menu" className={`${styles.btn}`}>
+                <FaBars style={{ marginRight: '10px' }} />
+                MENU
+              </Link>
             </div>
           </form>
         </div>

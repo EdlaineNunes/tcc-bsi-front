@@ -1,3 +1,5 @@
+/* Login.module.css */
+
 .container {
   display: flex;
   justify-content: center;
@@ -20,6 +22,12 @@
 .loginBox h2 {
   margin-bottom: 20px;
   color: #333;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.inputGroup {
+  margin-bottom: 20px;
 }
 
 .label {
@@ -28,6 +36,20 @@
   text-align: left;
   font-weight: bold;
   color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  margin-right: 10px;
+  /* Espaço entre o ícone e o texto */
+  color: #007bff;
+  /* Cor do ícone */
+}
+
+.inputWithIcon {
+  display: flex;
+  align-items: center;
 }
 
 .input {
@@ -57,4 +79,13 @@
 
 .button:hover {
   background-color: var(--button-hover-color);
+}
+
+.registerButton {
+  margin-top: 10px;
+  background-color: #28a745;
+}
+
+.registerButton:hover {
+  background-color: #218838;
 }

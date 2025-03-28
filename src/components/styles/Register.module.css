@@ -21,31 +21,81 @@
     border-radius: var(--border-radius);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     text-align: center;
+    overflow: hidden;
+    /* Evita que o conteúdo ultrapasse a borda */
 }
 
 h2 {
     margin-bottom: 20px;
     color: var(--secondary-color);
     font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 .icon {
+    margin-right: 10px;
+    font-size: 32px;
+    color: black
+        /* Ajusta o tamanho do ícone */
 }
 
 form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 
-input,
+.inputGroup {
+    position: relative;
+    margin: 12px 0;
+}
+
+.inputWithIcon {
+    position: relative;
+    width: 100%;
+}
+
+.inputWithIcon input {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    /* Espaço para o ícone */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: border-color var(--transition);
+    box-sizing: border-box;
+    /* Garante que o padding não afete o tamanho total */
+}
+
+.inputWithIcon input:focus {
+    border-color: var(--primary-color);
+}
+
+.icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
 select {
-    margin: 8px 0;
+    width: 100%;
+    margin: 12px 0;
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     outline: none;
     transition: border-color var(--transition);
+    box-sizing: border-box;
+    /* Garante que o padding não afete o tamanho total */
 }
 
-input:focus,
 select:focus {
     border-color: var(--primary-color);
 }
@@ -60,6 +110,8 @@ button {
     font-size: 18px;
     cursor: pointer;
     transition: background-color var(--transition), transform var(--transition);
+    width: 100%;
+    /* Garante que o botão ocupe toda a largura disponível */
 }
 
 button:hover {
@@ -97,7 +149,8 @@ button:active {
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: background-color var(--transition);
-    width: 97%;
+    width: 100%;
+    /* Garante que o botão ocupe toda a largura disponível */
 }
 
 .back-button:hover {

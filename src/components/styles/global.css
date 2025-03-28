@@ -265,3 +265,27 @@ select:focus {
 .details-card strong {
     color: var(--primary-color);
 }
+
+.button-container-view {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+    max-width: 300px;
+}
+
+.action-button-view {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: auto;
+}
+
+.action-button-view:hover {
+    background-color: #0056b3;
+}

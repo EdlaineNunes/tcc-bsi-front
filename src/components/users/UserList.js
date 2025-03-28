@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from "../common/Header";
+import { FaThList, FaEdit, FaBars } from 'react-icons/fa';
 
 
 const UserList = ({ token, userName, role, handleLogout }) => {
@@ -50,7 +51,7 @@ const UserList = ({ token, userName, role, handleLogout }) => {
     <div>
       <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className="container">
-        <h2>Lista de Usuários</h2>
+        <h2><FaThList style={{ marginRight: '10px' }} />Lista de Usuários</h2>
         <div className="table-container">
           <table>
             <thead>
@@ -78,6 +79,7 @@ const UserList = ({ token, userName, role, handleLogout }) => {
                       className="btn-detail"
                       onClick={() => navigate(`/users/edit/${user.id}`)}
                     >
+                      <FaEdit style={{ marginRight: '10px' }} />
                       Editar
                     </button>
                   </td>
@@ -87,7 +89,10 @@ const UserList = ({ token, userName, role, handleLogout }) => {
           </table>
         </div>
         <div className="button-group">
-          <Link to="/menu" className="btn-menu">Voltar</Link>
+          <Link to="/menu" className="btn-menu">
+            <FaBars style={{ marginRight: '10px' }} />
+            MENU
+          </Link>
         </div>
       </div>
     </div>

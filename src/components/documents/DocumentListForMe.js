@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaRegFileAlt, FaDownload, FaUpload, FaBars, FaThList } from 'react-icons/fa';
 import axios from 'axios';
-import Header from '../common/Header'; // Importe o Header
+import Header from '../common/Header';
 
 const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
   const [documents, setDocuments] = useState([]);
@@ -58,7 +59,7 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
       <Header userName={userName} role={role} handleLogout={handleLogout} />
 
       <div className="container">
-        <h2>Lista de Documentos</h2>
+        <h2><FaThList style={{ marginRight: '10px' }} />Lista de Documentos</h2>
         <table className="table">
           <thead>
             <tr>
@@ -76,8 +77,14 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
                 <td>{new Date(doc.createdAt).toLocaleString()}</td>
                 <td>
                   <div className="action-buttons">
-                    <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">Detalhes</Link>
-                    <button className="btn btn-download" onClick={() => handleDownload(doc.id, doc.filename)}>Baixar</button>
+                    <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">
+                      <FaRegFileAlt style={{ marginRight: '10px' }} />
+                      Detalhes
+                    </Link>
+                    <button className="btn btn-download" onClick={() => handleDownload(doc.id, doc.filename)}>
+                      <FaDownload style={{ marginRight: '10px' }} />
+                      Baixar
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -86,8 +93,14 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
         </table>
 
         <div className="button-group">
-          <Link to="/documents/upload" className="btn btn-upload">Upload Novo Documento</Link>
-          <Link to="/menu" className="btn btn-menu">MENU</Link>
+          <Link to="/documents/upload" className="btn btn-upload">
+            <FaUpload style={{ marginRight: '10px' }} />
+            Upload Novo Documento
+          </Link>
+          <Link to="/menu" className="btn btn-menu">
+            <FaBars style={{ marginRight: '10px' }} />
+            MENU
+          </Link>
         </div>
       </div>
     </div>

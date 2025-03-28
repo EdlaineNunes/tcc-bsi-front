@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/UserEdit.module.css';
 import Header from '../common/Header'
+import { FaSave, FaEdit, FaBars } from 'react-icons/fa';
 
 const UserEdit = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
@@ -80,7 +81,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles.editContainer}>
         <div className={styles.editCard}>
-          <h2>Editar Usuário</h2>
+          <h2><FaEdit style={{ marginRight: '10px' }} />Editar Usuário</h2>
 
           {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
           {success && <div className={`${styles.message} ${styles.success}`}>Usuário atualizado com sucesso!</div>}
@@ -133,8 +134,14 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
             </select>
 
             <div className={styles.buttonGroup}>
-              <button type="submit" className={styles.btn}>Salvar</button>
-              <Link to="/menu" className={styles.btn}>Voltar</Link>
+              <button type="submit" className={styles.btn}>
+                <FaSave style={{ marginRight: '10px' }} />
+                Salvar
+              </button>
+              <Link to="/menu" className={styles.btn}>
+                <FaBars style={{ marginRight: '10px' }} />
+                MENU
+              </Link>
             </div>
           </form>
         </div>
