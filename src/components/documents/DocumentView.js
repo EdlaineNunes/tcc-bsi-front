@@ -21,7 +21,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
         const response = await axios.get(`http://localhost:8080/files/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setDoc(response.data); // Atualizando para "setDoc"
+        setDoc(response.data);
         console.log(response.data);
       } catch (error) {
         console.error('Erro ao buscar documento:', error);
@@ -41,12 +41,11 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = window.document.createElement('a'); // Usando "window.document" para o objeto global
       link.href = url;
-      link.setAttribute('download', `${doc.filename}`); // Nome do arquivo
+      link.setAttribute('download', `${doc.id}`); // Nome do arquivo
       window.document.body.appendChild(link);
       link.click();
       window.document.body.removeChild(link);
 
-      alert('Download realizado com sucesso!');
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
       alert('Erro ao baixar o documento.');
@@ -70,21 +69,43 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
 
           {doc.latestVersion && (
             <>
+              <br />
               <h3>Última Versão</h3>
               <p><strong>File ID:</strong> {doc.latestVersion.fileId}</p>
               <p><strong>Enviado em:</strong> {new Date(doc.latestVersion.uploadedAt).toLocaleString()}</p>
+              <br />
               <button onClick={() => handleDownload(doc.id, doc.versions.length - 1)}>Baixar Última Versão</button>
+              <button onClick={() => navigate(`/documents/update/${id}`)}>Adicionar Nova Versão</button>
             </>
           )}
 
           {doc.versions && doc.versions.length > 0 && (
             <>
+              <br /><br />
               <h3>Versões Anteriores</h3>
-              <ul>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
                 {doc.versions.map((version, index) => (
-                  <li key={version.fileId}>
+                  <li key={version.fileId} style={{ marginBottom: '15px', paddingBottom: '10px' }}>
+                    <strong>Título do documento:</strong> {version.fileName}
+                    <br />
                     <strong>File ID:</strong> {version.fileId} - <strong>Enviado em:</strong> {new Date(version.uploadedAt).toLocaleString()}
-                    <button onClick={() => handleDownload(doc.id, index)}>Baixar</button>
+                    <br />
+                    <button
+                      onClick={() => handleDownload(doc.id, index)}
+                      style={{
+                        display: 'block',
+                        margin: '10px auto',
+                        padding: '8px 12px',
+                        backgroundColor: '#007bff',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                        transition: 'background 0.3s ease-in-out',
+                        width: '120px',
+                      }}
+                    > 📥 Baixar</button>
+                    {index !== doc.versions.length - 1 && <hr style={{ marginTop: '10px', border: '1px solid #ccc' }} />}
                   </li>
                 ))}
               </ul>

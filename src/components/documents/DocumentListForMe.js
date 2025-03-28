@@ -62,17 +62,17 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>Data de Criação</th>
+              <th>Título</th>
+              <th>Enviado por</th>
+              <th>Data e Hora do Envio</th>
               <th>Ações</th>
             </tr>
           </thead>
           <tbody>
             {documents.map((doc) => (
               <tr key={doc.id}>
-                <td>{doc.id}</td>
                 <td>{doc.filename}</td>
+                <td>{doc.customerEmail}</td>
                 <td>{new Date(doc.createdAt).toLocaleString()}</td>
                 <td>
                   <div className="action-buttons">
