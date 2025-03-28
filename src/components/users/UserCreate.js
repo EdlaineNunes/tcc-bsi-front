@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/UserCreate.module.css';
 import Header from "../common/Header";
 import { FaBars, FaUserPlus } from 'react-icons/fa';
+import CPFInput from "../common/CPFInput";  // Importe o CPFInput
 
 const UserCreate = ({ token, userName, role, handleLogout }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');  // Novo estado para a confirmação de senha
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [permissionLevel, setPermissionLevel] = useState('');
   const [cpf, setCpf] = useState('');
   const [active, setActive] = useState('');
@@ -34,7 +35,10 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
       return;
     }
 
-    const newUser = { email, username, password, permissionLevel, cpf, active };
+    // Remove os caracteres de formatação do CPF (pontos e hífens)
+    const cpfWithoutFormat = cpf.replace(/[^\d]+/g, '');
+
+    const newUser = { email, username, password, permissionLevel, cpf: cpfWithoutFormat, active };
 
     try {
       await axios.post('http://localhost:8080/users/register', newUser, {
@@ -99,13 +103,7 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
             />
 
             <label>CPF</label>
-            <input
-              type="text"
-              value={cpf}
-              onChange={(e) => setCpf(e.target.value)}
-              required
-              placeholder="Digite o CPF"
-            />
+            <CPFInput initialValue={cpf} onChange={setCpf} /> {/* Usando o componente CPFInput aqui */}
 
             <label>Permissão</label>
             <select

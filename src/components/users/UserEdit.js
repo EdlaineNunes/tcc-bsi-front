@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import styles from '../styles/UserEdit.module.css';
 import Header from '../common/Header';
-import { FaSave, FaEdit, FaBars } from 'react-icons/fa';
+import { FaSave, FaEdit, FaBars, FaKey } from 'react-icons/fa';
 import CPFInput from "../common/CPFInput";
+import { FaX } from 'react-icons/fa6';
 
 const UserEdit = ({ token, userName, role, handleLogout }) => {
   const { id } = useParams();
@@ -18,6 +19,12 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
   const [active, setActive] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState('');
+  const [showPasswordForm, setShowPasswordForm] = useState(false);  // Controla a exibição do formulário de senha
+
   useEffect(() => {
     setEmail('');
     setUsername('');
@@ -29,8 +36,6 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       navigate('/');
       return;
     }
-
-    console.log("TokenUserEdit :: ", token);
 
     axios.get(`http://localhost:8080/users/${id}`, {
       headers: {
@@ -95,6 +100,37 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       console.error('Erro ao alterar status:', error);
       setError('Erro ao alterar status do usuário.');
+    }
+  };
+
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setPasswordError('As senhas não coincidem.');
+      setPasswordSuccess('');
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/users/${id}/change-password`,
+        { password },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setPasswordSuccess('Senha alterada com sucesso!');
+        setPasswordError('');
+        setShowPasswordForm(false);  // Fecha o formulário após sucesso
+      }
+    } catch (error) {
+      setPasswordError('Erro ao alterar a senha.');
+      setPasswordSuccess('');
     }
   };
 
@@ -165,8 +201,67 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
                 <FaBars style={{ marginRight: '10px' }} />
                 MENU
               </Link>
+
+              {/* Botão de Alterar Senha, visível apenas para ADMIN ou SUPER_ADMIN */}
+              {(role === 'ADMIN' || role === 'SUPER_ADMIN') && (
+                <button
+                  type="button"
+                  onClick={() => setShowPasswordForm(!showPasswordForm)}
+                  className={styles.btn}
+                >
+                  <FaKey style={{ marginRight: '10px' }} />
+                  Alterar Senha
+                </button>
+              )}
             </div>
           </form>
+
+          {/* Formulário de alteração de senha */}
+          {showPasswordForm && (
+            <div className={styles.changePasswordForm}>
+              <h3><FaKey style={{ marginRight: '10px' }} /> Alterar Senha</h3>
+              {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
+              {passwordSuccess && <div className={styles.successMessage}>{passwordSuccess}</div>}
+              <form onSubmit={handleChangePassword}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="password">Nova Senha</label>
+                  <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="confirmPassword">Confirmar Senha</label>
+                  <input
+                    type="password"
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className={styles.buttonGroup}>
+                  <button type="submit" className={styles.btn}>
+                    <FaKey style={{ marginRight: '10px' }} />
+                    Alterar Senha
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.btn}
+                    onClick={() => setShowPasswordForm(false)}
+                  >
+                    <FaX style={{ marginRight: '10px' }} />
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </div>

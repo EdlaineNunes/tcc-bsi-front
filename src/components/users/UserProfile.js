@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../common/Header';
 import styles from '../styles/UserProfile.module.css';
-import { FaEdit, FaBars, FaRegUserCircle, FaUserEdit } from 'react-icons/fa';
+import { FaBars, FaRegUserCircle, FaUserEdit, FaKey } from 'react-icons/fa';
 
 import { FaX } from 'react-icons/fa6';
 
@@ -91,7 +91,7 @@ const UserProfile = ({ token, userId, role }) => {
                             Editar Perfil
                         </button>
                         <button onClick={() => setShowChangePasswordForm(true)} className="btn">
-                            <FaEdit style={{ marginRight: '10px' }} />
+                            <FaKey style={{ marginRight: '10px' }} />
                             Alterar Senha
                         </button>
                         <button onClick={() => navigate(`/menu`)} className="btn">
@@ -105,7 +105,7 @@ const UserProfile = ({ token, userId, role }) => {
                     {showChangePasswordForm && (
                         <div className={styles.changePasswordForm}>
                             <h2>
-                                <FaEdit style={{ marginRight: '10px' }} />
+                                <FaKey style={{ marginRight: '10px' }} />
                                 Alterar Senha
                             </h2>
                             {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
@@ -136,7 +136,7 @@ const UserProfile = ({ token, userId, role }) => {
                                 {/* Botões lado a lado */}
                                 <div className={styles.buttonGroup}>
                                     <button type="submit" className="btn">
-                                        <FaEdit style={{ marginRight: '10px' }} />
+                                        <FaKey style={{ marginRight: '10px' }} />
                                         Alterar Senha
                                     </button>
                                     <button
