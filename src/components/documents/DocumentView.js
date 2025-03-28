@@ -31,7 +31,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
     fetchDocument();
   }, [id, token]);
 
-  const handleDownload = async (documentId, versionIndex) => {
+  const handleDownload = async (documentId, versionIndex, fileName) => {
     try {
       const response = await axios.get(`http://localhost:8080/files/download-version/${documentId}/${versionIndex}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -41,7 +41,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = window.document.createElement('a'); // Usando "window.document" para o objeto global
       link.href = url;
-      link.setAttribute('download', `${doc.id}`); // Nome do arquivo
+      link.setAttribute('download', fileName); // Nome do arquivo
       window.document.body.appendChild(link);
       link.click();
       window.document.body.removeChild(link);
@@ -72,9 +72,10 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
               <br />
               <h3>Última Versão</h3>
               <p><strong>File ID:</strong> {doc.latestVersion.fileId}</p>
+              <p><strong>Título:</strong> {doc.latestVersion.fileName}</p>
               <p><strong>Enviado em:</strong> {new Date(doc.latestVersion.uploadedAt).toLocaleString()}</p>
               <br />
-              <button onClick={() => handleDownload(doc.id, doc.versions.length - 1)}>Baixar Última Versão</button>
+              <button onClick={() => handleDownload(doc.id, doc.versions.length - 1, doc.latestVersion.fileName)}>Baixar Última Versão</button>
               <button onClick={() => navigate(`/documents/update/${id}`)}>Adicionar Nova Versão</button>
             </>
           )}
@@ -91,7 +92,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
                     <strong>File ID:</strong> {version.fileId} - <strong>Enviado em:</strong> {new Date(version.uploadedAt).toLocaleString()}
                     <br />
                     <button
-                      onClick={() => handleDownload(doc.id, index)}
+                      onClick={() => handleDownload(doc.id, index, doc.fileName)}
                       style={{
                         display: 'block',
                         margin: '10px auto',

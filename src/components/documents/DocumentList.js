@@ -33,7 +33,7 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
     fetchDocuments();
   }, [token, navigate]);
 
-  const handleDownload = async (id) => {
+  const handleDownload = async (id, fileName) => {
     try {
       const response = await axios.get(`http://localhost:8080/files/download/${id}`, {
         headers: {
@@ -45,7 +45,7 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `documento-${id}.pdf`);
+      link.setAttribute('download', fileName);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -80,7 +80,7 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
                     <Link to={`/documents/view/${doc.id}`} className="btn btn-detail">
                       Detalhes
                     </Link>
-                    <button className="btn btn-download" onClick={() => handleDownload(doc.id)}>
+                    <button className="btn btn-download" onClick={() => handleDownload(doc.id, doc.filename)}>
                       Baixar
                     </button>
                   </div>

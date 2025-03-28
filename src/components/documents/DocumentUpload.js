@@ -40,10 +40,16 @@ const DocumentUpload = ({ token, userName, role, handleLogout }) => {
       });
 
       alert('Upload realizado com sucesso!');
-      navigate('/documents/listAll');
+      navigate('/menu');
     } catch (error) {
       console.error('Erro ao enviar documento:', error);
-      alert('Erro ao enviar o documento.');
+      console.error('Status:', error.response.status);
+      if (error.response && error.response.status === 422) {
+        alert('O documento precisa possuir uma extensão válida.\nEx: jpg, jpeg, png, pdf, xls, xlsx, doc, docx, csv ');
+      } else {
+        alert('Erro ao enviar o documento.');
+        navigate('/menu');
+      }
     }
   };
 
