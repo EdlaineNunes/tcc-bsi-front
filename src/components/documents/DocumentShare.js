@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const DocumentShare = ({ token }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -12,7 +14,7 @@ const DocumentShare = ({ token }) => {
     e.preventDefault();
 
     try {
-      await axios.post(`http://localhost:8080/api/documents/share/${id}`, null, {
+      await axios.post(`${API_URL}/api/documents/share/${id}`, null, {
         params: { email }
       });
       alert('Documento compartilhado com sucesso!');

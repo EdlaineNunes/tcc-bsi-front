@@ -20,6 +20,7 @@ const RegisterUser = ({ token }) => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    const API_URL = process.env.REACT_APP_BACKEND_URL;
 
     // Verifica se as senhas são iguais
     if (password !== confirmPassword) {
@@ -29,7 +30,7 @@ const RegisterUser = ({ token }) => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/auth/register', {
+      await axios.post(`${API_URL}/auth/register`, {
         email,
         password,
         role,

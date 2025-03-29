@@ -8,6 +8,8 @@ import CPFInput from "../common/CPFInput";
 import { FaX } from 'react-icons/fa6';
 
 const UserEdit = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       return;
     }
 
-    axios.get(`http://localhost:8080/users/${id}`, {
+    axios.get(`${API_URL}/users/${id}`, {
       headers: {
         "Authorization": `Bearer ${token}`,
       },
@@ -72,7 +74,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
     };
 
     try {
-      await axios.put(`http://localhost:8080/users/${id}`, updatedUser, {
+      await axios.put(`${API_URL}/users/${id}`, updatedUser, {
         headers: {
           "Authorization": `Bearer ${token}`,
         },
@@ -87,7 +89,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
 
   const handleChangeStatus = async (status) => {
     try {
-      const url = `http://localhost:8080/users/${id}/${status ? 'enable' : 'disable'}`;
+      const url = `${API_URL}/users/${id}/${status ? 'enable' : 'disable'}`;
 
       await axios.put(url, {}, {
         headers: {
@@ -114,7 +116,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/users/${id}/change-password`,
+        `${API_URL}/users/${id}/change-password`,
         { password },
         {
           headers: {

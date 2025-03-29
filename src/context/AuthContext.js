@@ -6,6 +6,8 @@ import { jwtDecode } from 'jwt-decode';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Adicionando um estado de loading
   const navigate = useNavigate();
@@ -24,7 +26,7 @@ export const AuthProvider = ({ children }) => {
           logout();
         } else {
           axios
-            .get('http://localhost:8080/auth/login', {
+            .get(`${API_URL}/auth/login`, {
               headers: { Authorization: `Bearer ${token}` }
             })
             .then(response => {
@@ -50,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       logout();
     } else {
       axios
-        .get('http://localhost:8080/auth/login', {
+        .get(`${API_URL}/auth/login`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then(response => {

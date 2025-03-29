@@ -5,6 +5,8 @@ import Header from '../common/Header';
 import { FaDownload, FaUpload, FaBars, FaThList, FaInfoCircle, FaTrashAlt } from 'react-icons/fa';
 
 const DocumentView = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const { id } = useParams();
   const [doc, setDoc] = useState(null);
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
 
     const fetchDocument = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/files/${id}`, {
+        const response = await axios.get(`${API_URL}/files/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setDoc(response.data);
@@ -34,7 +36,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
   const handleDownload = async (documentId, versionIndex, fileName) => {
     console.log("filename --> ", fileName);
     try {
-      const response = await axios.get(`http://localhost:8080/files/download-version/${documentId}/${versionIndex}`, {
+      const response = await axios.get(`${API_URL}/files/download-version/${documentId}/${versionIndex}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob', // Garantindo que o arquivo seja tratado como blob
       });
@@ -57,7 +59,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
     const confirmDelete = window.confirm("Tem certeza que deseja excluir este documento permanentemente? A exclusão é irreversível.");
     if (confirmDelete) {
       try {
-        const response = await axios.delete(`http://localhost:8080/files/delete/${documentId}`, {
+        const response = await axios.delete(`${API_URL}/files/delete/${documentId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('Documento excluído com sucesso!');

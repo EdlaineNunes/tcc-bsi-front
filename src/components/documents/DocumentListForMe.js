@@ -5,8 +5,10 @@ import axios from 'axios';
 import Header from '../common/Header';
 
 const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [documents, setDocuments] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // Estado de pesquisa do nome do documento
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate()
   console.log("Token DocumentListForMe :: ", token);
 
@@ -18,7 +20,7 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
 
     const fetchDocuments = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/files/my-files', {
+        const response = await axios.get(`${API_URL}/files/my-files`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +46,7 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
 
   const handleDownload = async (id, fileName) => {
     try {
-      const response = await axios.get(`http://localhost:8080/files/download/${id}`, {
+      const response = await axios.get(`${API_URL}/files/download/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

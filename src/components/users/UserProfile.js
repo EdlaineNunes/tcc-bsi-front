@@ -8,6 +8,8 @@ import { FaBars, FaRegUserCircle, FaUserEdit, FaKey } from 'react-icons/fa';
 import { FaX } from 'react-icons/fa6';
 
 const UserProfile = ({ token, userId, role }) => {
+    const API_URL = process.env.REACT_APP_BACKEND_URL;
+
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
     const [password, setPassword] = useState('');
@@ -23,7 +25,7 @@ const UserProfile = ({ token, userId, role }) => {
             return;
         }
 
-        axios.get(`http://localhost:8080/users/${userId}`, {
+        axios.get(`${API_URL}/users/${userId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -47,7 +49,7 @@ const UserProfile = ({ token, userId, role }) => {
 
         try {
             const response = await axios.put(
-                `http://localhost:8080/users/${userId}`,
+                `${API_URL}/users/${userId}`,
                 password,
                 {
                     headers: {

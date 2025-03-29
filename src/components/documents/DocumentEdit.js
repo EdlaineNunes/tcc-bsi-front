@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const DocumentEdit = ({ token }) => {
   console.log("Token DocumentEdit :: ", token)
-
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
   const { id } = useParams();
   const navigate = useNavigate();
   const [filename, setFilename] = useState('');
@@ -16,7 +16,7 @@ const DocumentEdit = ({ token }) => {
       return;
     }
 
-    axios.get(`http://localhost:8080/api/documents/${id}`)
+    axios.get(`${API_URL}/api/documents/${id}`)
       .then(response => setFilename(response.data.filename))
       .catch(error => console.error('Erro ao carregar documento:', error));
   }, [id]);
@@ -25,7 +25,7 @@ const DocumentEdit = ({ token }) => {
     e.preventDefault();
 
     try {
-      await axios.put(`http://localhost:8080/api/documents/${id}`, { filename });
+      await axios.put(`${API_URL}/api/documents/${id}`, { filename });
       navigate('/documents');
     } catch (error) {
       console.error('Erro ao editar documento:', error);

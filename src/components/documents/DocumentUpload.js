@@ -5,6 +5,8 @@ import styles from '../styles/DocumentUpload.module.css';
 import Header from '../common/Header'
 
 const DocumentUpload = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   console.log("Token DocumentUpload :: ", token);
@@ -32,7 +34,7 @@ const DocumentUpload = ({ token, userName, role, handleLogout }) => {
     formData.append('file', file);
 
     try {
-      await axios.post('http://localhost:8080/files/upload', formData, {
+      await axios.post(`${API_URL}/files/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

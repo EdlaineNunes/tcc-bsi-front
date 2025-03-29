@@ -4,9 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/UserCreate.module.css';
 import Header from "../common/Header";
 import { FaBars, FaUserPlus } from 'react-icons/fa';
-import CPFInput from "../common/CPFInput";  // Importe o CPFInput
+import CPFInput from "../common/CPFInput";
 
 const UserCreate = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -28,20 +30,18 @@ const UserCreate = ({ token, userName, role, handleLogout }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica se as senhas são iguais
     if (password !== confirmPassword) {
       setError('As senhas não coincidem.');
       setSuccess(false);
       return;
     }
 
-    // Remove os caracteres de formatação do CPF (pontos e hífens)
     const cpfWithoutFormat = cpf.replace(/[^\d]+/g, '');
 
     const newUser = { email, username, password, permissionLevel, cpf: cpfWithoutFormat, active };
 
     try {
-      await axios.post('http://localhost:8080/users/register', newUser, {
+      await axios.post(`${API_URL}/users/register`, newUser, {
         headers: {
           "Authorization": `Bearer ${token}`
         }

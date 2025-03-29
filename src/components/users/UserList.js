@@ -5,6 +5,8 @@ import Header from "../common/Header";
 import { FaThList, FaEdit, FaBars, FaSearch, FaFilter } from 'react-icons/fa';
 
 const UserList = ({ token, userName, role, handleLogout }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
+
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +22,7 @@ const UserList = ({ token, userName, role, handleLogout }) => {
       return;
     }
 
-    axios.get('http://localhost:8080/users/', {
+    axios.get(`${API_URL}/users/`, {
       headers: { "Authorization": `Bearer ${token}` }
     })
       .then(response => {

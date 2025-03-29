@@ -6,6 +6,7 @@ import styles from '../styles/Login.module.css';
 import { FaEnvelope, FaLock, FaSignInAlt, FaUsers } from 'react-icons/fa';
 
 const Login = ({ setToken }) => {
+  const API_URL = process.env.REACT_APP_BACKEND_URL;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Login = ({ setToken }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+        `${API_URL}/auth/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
       );
 
       const token = response.data.token || response.data;
