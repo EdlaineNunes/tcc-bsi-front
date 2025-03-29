@@ -7,6 +7,15 @@ import { FaBars, FaRegUserCircle, FaUserEdit, FaKey } from 'react-icons/fa';
 
 import { FaX } from 'react-icons/fa6';
 
+const formatCPF = (cpf) => {
+    if (!cpf) return "";
+    return cpf
+        .replace(/\D/g, "")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+};
+
 const UserProfile = ({ token, userId, role }) => {
     const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -35,7 +44,7 @@ const UserProfile = ({ token, userId, role }) => {
                 setError('Erro ao carregar os dados do usuário');
                 console.error(err);
             });
-    }, [token, userId]);
+    }, [token, userId, API_URL]);
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
@@ -73,7 +82,7 @@ const UserProfile = ({ token, userId, role }) => {
 
     return (
         <div>
-            <Header userName={userData.username} role={role} handleLogout={() => { }} />
+            <Header userName={userData.email} role={role} handleLogout={() => { }} />
 
             <div className="container">
                 <div className={styles.profileContainer}>
@@ -83,6 +92,7 @@ const UserProfile = ({ token, userId, role }) => {
                     </h1>
                     <div className={styles.detailsCard}>
                         <p><strong>Nome:</strong> {userData.username}</p>
+                        <p><strong>CPF:</strong> {formatCPF(userData.cpf)}</p>
                         <p><strong>Email:</strong> {userData.email}</p>
                         <p><strong>Permissão:</strong> {userData.permissionLevel}</p>
                         <p><strong>Status:</strong> {userData.active ? 'Ativo' : 'Inativo'}</p>

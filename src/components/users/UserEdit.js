@@ -61,7 +61,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
           navigate('/error/500');
         }
       });
-  }, [id, token]);
+  }, [id, token, API_URL, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

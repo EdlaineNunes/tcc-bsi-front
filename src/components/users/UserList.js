@@ -48,7 +48,7 @@ const UserList = ({ token, userName, role, handleLogout }) => {
         }
         setLoading(false);
       });
-  }, [token, navigate]);
+  }, [token, navigate, API_URL]);
 
   const handleFilterChange = (event) => {
     setFilterStatus(event.target.value);
