@@ -4,14 +4,23 @@ import axios from 'axios';
 import Header from "../common/Header";
 import { FaThList, FaEdit, FaBars, FaSearch, FaFilter } from 'react-icons/fa';
 
+const formatCPF = (cpf) => {
+  if (!cpf) return "";
+  return cpf
+    .replace(/\D/g, "")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+};
+
 const UserList = ({ token, userName, role, handleLogout }) => {
   const API_URL = process.env.REACT_APP_BACKEND_URL;
 
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filterStatus, setFilterStatus] = useState("all"); // Estado do filtro de status
-  const [searchQuery, setSearchQuery] = useState(""); // Estado da busca pelo nome
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -93,7 +102,7 @@ const UserList = ({ token, userName, role, handleLogout }) => {
           <table>
             <thead>
               <tr>
-                <th>ID</th>
+                {/* <th>ID</th> */}
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Email</th>
@@ -105,9 +114,9 @@ const UserList = ({ token, userName, role, handleLogout }) => {
             <tbody>
               {filteredUsers.map(user => (
                 <tr key={user.id}>
-                  <td>{user.id}</td>
+                  {/* <td>{user.id}</td> */}
                   <td>{user.username}</td>
-                  <td>{user.cpf}</td>
+                  <td>{formatCPF(user.cpf)}</td>
                   <td>{user.email}</td>
                   <td>{user.permissionLevel}</td>
                   <td>{user.active ? "✅" : "❌"}</td>

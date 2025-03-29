@@ -164,6 +164,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled
             />
 
             <label>Permissão</label>
