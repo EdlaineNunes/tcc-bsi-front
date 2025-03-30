@@ -75,9 +75,10 @@ const UserProfile = ({ token, userId, role }) => {
                 setPasswordError('');
                 setPassword('')
                 setConfirmPassword('')
-                alert("Sucesso ao alterar a senha!")
+                alert("Sucesso ao alterar a senha! Você será redirecionado ao login.")
                 setPasswordSuccess('');
                 setShowChangePasswordForm(false);
+                navigate('/')
             }
         } catch (error) {
             setPasswordError('Erro ao alterar a senha.');

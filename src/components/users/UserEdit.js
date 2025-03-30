@@ -7,6 +7,15 @@ import { FaSave, FaEdit, FaBars, FaKey } from 'react-icons/fa';
 import CPFInput from "../common/CPFInput";
 import { FaX } from 'react-icons/fa6';
 
+const formatCPF = (cpf) => {
+  if (!cpf) return '';
+  return cpf
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+};
+
 const UserEdit = ({ token, userName, role, handleLogout }) => {
   const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -80,7 +89,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
         },
       });
       setSuccess(true);
-      setTimeout(() => navigate('/users/listAll'), 2000);
+      setTimeout(() => navigate('/menu'), 2000);
     } catch (error) {
       setError('Erro ao editar usuário.');
       console.error('Erro ao editar usuário:', error);
@@ -176,30 +185,49 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
               required
             />
 
-            <label>CPF</label>
-            <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
+            {role === 'ADMIN' || role === 'SUPER_ADMIN' ? (
+              <>
+                <label>CPF</label>
+                <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
+              </>
+            ) : (
+              <>
+                <label>CPF</label>
+                <input
+                  type="text"
+                  value={formatCPF(cpf)}
+                  readOnly
+                  disabled
+                />
+              </>
+            )}
 
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled
-            />
-
-            <label>Permissão</label>
-            <select
-              value={permissionLevel}
-              onChange={(e) => setPermissionLevel(e.target.value)}
-              required
-            >
-              <option value="GUEST">GUEST - Convidado</option>
-              <option value="USER">USER - Usuário comum</option>
-              <option value="COUNTER">COUNTER - Contador</option>
-              <option value="ADMIN">ADMIN - Admin do sistema</option>
-              <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
-            </select>
+            {role === 'ADMIN' || role === 'SUPER_ADMIN' ? (
+              <>
+                <label>Permissão</label>
+                <select
+                  value={permissionLevel}
+                  onChange={(e) => setPermissionLevel(e.target.value)}
+                  required
+                >
+                  <option value="GUEST">GUEST - Convidado</option>
+                  <option value="USER">USER - Usuário comum</option>
+                  <option value="COUNTER">COUNTER - Contador</option>
+                  <option value="ADMIN">ADMIN - Admin do sistema</option>
+                  <option value="SUPER_ADMIN">SUPER_ADMIN - SuperAdmin do sistema</option>
+                </select>
+              </>
+            ) : (
+              <>
+                <label>Permissão</label>
+                <input
+                  type="text"
+                  value={permissionLevel}
+                  readOnly
+                  disabled
+                />
+              </>
+            )}
 
             <label>Status</label>
             <div className={styles.toggleContainer}>
@@ -207,7 +235,12 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
                 <input
                   type="checkbox"
                   checked={active}
-                  onChange={(e) => handleChangeStatus(e.target.checked)}
+                  onChange={(e) => {
+                    if (role === 'ADMIN' || role === 'SUPER_ADMIN') {
+                      handleChangeStatus(e.target.checked);
+                    }
+                  }}
+                  disabled={role !== 'ADMIN' && role !== 'SUPER_ADMIN'}
                 />
                 <span className={styles.slider}></span>
               </label>
@@ -226,7 +259,6 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
                 MENU
               </Link>
 
-              {/* Botão de Alterar Senha, visível apenas para ADMIN ou SUPER_ADMIN */}
               {(role === 'ADMIN' || role === 'SUPER_ADMIN') && (
                 <button
                   type="button"
@@ -240,7 +272,6 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
             </div>
           </form>
 
-          {/* Formulário de alteração de senha */}
           {showPasswordForm && (
             <div className={styles.changePasswordForm}>
               <h3><FaKey style={{ marginRight: '10px' }} /> Alterar Senha</h3>
