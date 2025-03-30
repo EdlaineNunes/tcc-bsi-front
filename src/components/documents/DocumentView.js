@@ -99,7 +99,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
           <p><strong>Email do Cliente:</strong> {doc.customerEmail}</p>
           <p><strong>Data de Criação:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
           <p><strong>Tipo:</strong>
-            {doc.type == 'PUBLIC'
+            {doc.type === 'PUBLIC'
               ? " Público - Visível para todos os usuários autenticados"
               : " Fiscal - Visível apenas para ADM's e Contadores"
             }
