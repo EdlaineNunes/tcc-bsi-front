@@ -1,4 +1,3 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -40,54 +39,60 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.loginBox}>
-        <h2>
-          <FaUsers style={{ marginRight: '8px' }} /> Login
-        </h2>
-        <form onSubmit={handleLogin}>
-          <div className={styles.inputGroup}>
-            <label className={styles.label}>
-              <FaEnvelope className={styles.icon} />
-              Email:
-            </label>
-            <div className={styles.inputWithIcon}>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={styles.input}
-                required
-              />
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <div className={styles.loginBox}>
+          <h2>
+            <FaUsers style={{ marginRight: '8px' }} /> Login
+          </h2>
+          <form onSubmit={handleLogin}>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>
+                <FaEnvelope className={styles.icon} />
+                Email:
+              </label>
+              <div className={styles.inputWithIcon}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={styles.input}
+                  required
+                />
+              </div>
             </div>
-          </div>
 
-          <div className={styles.inputGroup}>
-            <label className={styles.label}>
-              <FaLock className={styles.icon} />
-              Senha:
-            </label>
-            <div className={styles.inputWithIcon}>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={styles.input}
-                required
-              />
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>
+                <FaLock className={styles.icon} />
+                Senha:
+              </label>
+              <div className={styles.inputWithIcon}>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={styles.input}
+                  required
+                />
+              </div>
             </div>
-          </div>
 
-          <button type="submit" className={styles.button}>
-            <FaSignInAlt style={{ marginRight: '8px' }} /> Entrar
+            <button type="submit" className={styles.button}>
+              <FaSignInAlt style={{ marginRight: '8px' }} /> Entrar
+            </button>
+          </form>
+          <button
+            onClick={handleRegisterRedirect}
+            className={`${styles.button} ${styles.registerButton}`}
+          >
+            Não tem uma conta? Registre-se
           </button>
-        </form>
-        <button
-          onClick={handleRegisterRedirect}
-          className={`${styles.button} ${styles.registerButton}`}
-        >
-          Não tem uma conta? Registre-se
-        </button>
+        </div>
+      </div>
+
+      <div className={styles.footer}>
+        <img src="/pequi.png" alt="Logo do Rodapé" />
       </div>
     </div>
   );

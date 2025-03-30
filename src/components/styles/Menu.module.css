@@ -56,3 +56,16 @@
 .menuButton:active {
   transform: translateY(1px);
 }
+
+.footer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.footer img {
+  width: 250px;
+  height: auto;
+}

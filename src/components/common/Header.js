@@ -1,4 +1,3 @@
-// Header.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
@@ -15,7 +14,13 @@ const Header = ({ userName, role, handleLogout }) => {
 
     return (
         <div className={styles.header}>
-            <h1><FaFileCircleCheck style={{ marginRight: '10px' }} />Gestão de Documentos - Núcleo do Pequi</h1>
+            <div className={styles.headerTitle}>
+                <img src="/pequi.png" alt="Logo" className={styles.logo} />
+                <div>
+                    <h1>Gestão de Documentos </h1>
+                    <h1>Núcleo do Pequi</h1>
+                </div>
+            </div>
             <div className={styles.headerContent}>
                 <div className={styles.userDetails}>
                     <FaUserCircle style={{ marginRight: '10px' }} />

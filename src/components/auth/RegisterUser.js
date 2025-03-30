@@ -62,81 +62,87 @@ const RegisterUser = ({ token }) => {
   };
 
   return (
-    <div className={styles['register-container']}>
-      <h2> <FaRegUserCircle style={{ marginRight: '8px' }} />Cadastro</h2>
+    <div className={styles.wrapper}>
+      <div className={styles['register-container']}>
+        <h2> <FaRegUserCircle style={{ marginRight: '8px' }} />Cadastro</h2>
 
-      {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
-      {success && <div className={`${styles.message} ${styles.success}`}>Cadastro realizado com sucesso!</div>}
+        {error && <div className={`${styles.message} ${styles.error}`}>{error}</div>}
+        {success && <div className={`${styles.message} ${styles.success}`}>Cadastro realizado com sucesso!</div>}
 
-      <form onSubmit={handleRegister}>
-        <div className={styles.inputGroup}>
-          <FaEnvelope className={styles.icon} />
-          <div className={styles.inputWithIcon}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              required
-            />
+        <form onSubmit={handleRegister}>
+          <div className={styles.inputGroup}>
+            <FaEnvelope className={styles.icon} />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.inputGroup}>
-          <FaUser className={styles.icon} />
-          <div className={styles.inputWithIcon}>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Nome de usuário"
-              required
-            />
+          <div className={styles.inputGroup}>
+            <FaUser className={styles.icon} />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Nome de usuário"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.inputGroup}>
-          <FaLock className={styles.icon} />
-          <div className={styles.inputWithIcon}>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Senha"
-              required
-            />
+          <div className={styles.inputGroup}>
+            <FaLock className={styles.icon} />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.inputGroup}>
-          <FaLock className={styles.icon} />
-          <div className={styles.inputWithIcon}>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="Confirmar Senha"
-              required
-            />
+          <div className={styles.inputGroup}>
+            <FaLock className={styles.icon} />
+            <div className={styles.inputWithIcon}>
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                placeholder="Confirmar Senha"
+                required
+              />
+            </div>
           </div>
-        </div>
 
-        <div className={styles.inputGroup}>
-          <FaIdCard className={styles.icon} />
-          <div className={styles.inputWithIcon}>
-            <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
+          <div className={styles.inputGroup}>
+            <FaIdCard className={styles.icon} />
+            <div className={styles.inputWithIcon}>
+              <CPFInput initialValue={cpf} onChange={(value) => setCpf(value)} />
+            </div>
           </div>
-        </div>
-        <button type="submit">Cadastrar</button>
-      </form>
+          <button type="submit">Cadastrar</button>
+        </form>
 
-      <button
-        type="button"
-        className={styles['back-button']}
-        onClick={() => history('/')}
-      >
-        Voltar para o Login
-      </button>
+        <button
+          type="button"
+          className={styles['back-button']}
+          onClick={() => history('/')}
+        >
+          Voltar para o Login
+        </button>
+      </div>
+
+      <div className={styles.footer}>
+        <img src="/pequi.png" alt="Logo do Rodapé" />
+      </div>
     </div>
   );
 };

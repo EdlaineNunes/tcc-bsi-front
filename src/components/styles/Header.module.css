@@ -9,25 +9,45 @@
     color: var(--text-color);
     padding: 10px 20px;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: space-between;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-image: url('https://via.placeholder.com/1500x500');
     background-size: cover;
     background-position: center;
     height: 100px;
+    position: relative;
+}
+
+.headerTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
+    justify-content: center;
+    text-align: center;
+    max-width: calc(100% - 150px);
+}
+
+.logo {
+    width: 120px;
+    height: auto;
 }
 
 .header h1 {
-    flex-grow: 1;
-    text-align: center;
     margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .headerContent {
     display: flex;
     align-items: center;
     gap: 15px;
+    position: absolute;
+    right: 20px;
 }
 
 .userName,
@@ -40,6 +60,17 @@
 .welcome {
     font-style: italic;
     margin-right: 10px;
+}
+
+.logoutButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.logoutIcon {
+    color: var(--text-color);
+    font-size: 20px;
 }
 
 body {

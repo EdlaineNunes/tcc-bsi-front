@@ -1,5 +1,10 @@
 /* Login.module.css */
 
+.wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -42,9 +47,7 @@
 
 .icon {
   margin-right: 10px;
-  /* Espaço entre o ícone e o texto */
   color: #007bff;
-  /* Cor do ícone */
 }
 
 .inputWithIcon {
@@ -88,4 +91,17 @@
 
 .registerButton:hover {
   background-color: #218838;
+}
+
+.footer {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.footer img {
+  width: 250px;
+  height: auto;
 }

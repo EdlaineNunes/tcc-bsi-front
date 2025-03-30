@@ -7,7 +7,7 @@ import { FcDataConfiguration } from 'react-icons/fc';
 
 const Menu = ({ token, userName, role, handleLogout }) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <Header userName={userName} role={role} handleLogout={handleLogout} />
       <nav className={styles.navbar}>
         <h1><FcDataConfiguration style={{ marginRight: '10px' }} />MENU</h1>
@@ -45,14 +45,14 @@ const Menu = ({ token, userName, role, handleLogout }) => {
                 </li>
               )}
 
-              {/* Admin e Super Admin têm acesso a edição de usuários
-              {(role === 'ADMIN' || role === 'SUPER_ADMIN') && (
+              {/* Admin e Super Admin têm acesso a edição de usuários */}
+              {/* (role === 'ADMIN' || role === 'SUPER_ADMIN') && (
                 <li className={styles.menuItem}>
                   <Link to="/users/edit/:id" className={styles.menuButton}>
                     <FaEdit style={{ marginRight: '10px' }} /> Usuários - Editar
                   </Link>
                 </li>
-              )} */}
+              ) */}
 
               {/* Todos os usuários (exceto GUEST) têm acesso à parte de Documentos */}
               {role !== 'GUEST' && (
@@ -73,6 +73,10 @@ const Menu = ({ token, userName, role, handleLogout }) => {
           )}
         </ul>
       </nav>
+
+      <div className={styles.footer}>
+        <img src="/pequi.png" alt="Logo do Rodapé" />
+      </div>
     </div>
   );
 };
