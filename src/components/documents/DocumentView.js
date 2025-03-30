@@ -98,6 +98,12 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
           <p><strong>Nome:</strong> {doc.filename}</p>
           <p><strong>Email do Cliente:</strong> {doc.customerEmail}</p>
           <p><strong>Data de Criação:</strong> {new Date(doc.createdAt).toLocaleString()}</p>
+          <p><strong>Tipo:</strong>
+            {doc.type == 'PUBLIC'
+              ? " Público - Visível para todos os usuários autenticados"
+              : " Fiscal - Visível apenas para ADM's e Contadores"
+            }
+          </p>
 
           {doc.latestVersion && (
             <>
@@ -128,7 +134,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
           {doc.versions && doc.versions.length > 0 && (
             <>
               <br />
-              <h3>Versões Anteriores</h3>
+              <h3>Todas as Versões</h3>
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 {doc.versions.map((version, index) => (
                   <li key={version.fileId} style={{ marginBottom: '15px', paddingBottom: '10px' }}>
