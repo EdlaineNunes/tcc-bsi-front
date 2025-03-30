@@ -18,7 +18,14 @@ const DocumentEdit = ({ token }) => {
 
     axios.get(`${API_URL}/api/documents/${id}`)
       .then(response => setFilename(response.data.filename))
-      .catch(error => console.error('Erro ao carregar documento:', error));
+      .catch(error => {
+        console.error('Erro ao carregar documento:', error)
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
+        } else {
+          navigate('/error');
+        }
+      });
   }, [id]);
 
   const handleSave = async (e) => {
@@ -29,6 +36,11 @@ const DocumentEdit = ({ token }) => {
       navigate('/documents');
     } catch (error) {
       console.error('Erro ao editar documento:', error);
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 

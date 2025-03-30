@@ -25,7 +25,7 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [passwordSuccess, setPasswordSuccess] = useState('');
-  const [showPasswordForm, setShowPasswordForm] = useState(false);  // Controla a exibição do formulário de senha
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
 
   useEffect(() => {
     setEmail('');
@@ -55,10 +55,10 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       .catch((error) => {
         console.error('Erro ao carregar usuário:', error);
         setError('Erro ao carregar usuário.');
-        if (error.response) {
-          navigate('/error/422');
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
         } else {
-          navigate('/error/500');
+          navigate('/error');
         }
       });
   }, [id, token, API_URL, navigate]);
@@ -84,6 +84,11 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
     } catch (error) {
       setError('Erro ao editar usuário.');
       console.error('Erro ao editar usuário:', error);
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 
@@ -97,11 +102,16 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
         },
       });
 
-      setActive(status); // Atualiza o estado de 'active' conforme o novo status
+      setActive(status);
       alert(`Usuário ${status ? 'ativado' : 'desativado'} com sucesso!`);
     } catch (error) {
       console.error('Erro ao alterar status:', error);
       setError('Erro ao alterar status do usuário.');
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 
@@ -128,11 +138,16 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       if (response.status === 200) {
         setPasswordSuccess('Senha alterada com sucesso!');
         setPasswordError('');
-        setShowPasswordForm(false);  // Fecha o formulário após sucesso
+        setShowPasswordForm(false);
       }
     } catch (error) {
       setPasswordError('Erro ao alterar a senha.');
       setPasswordSuccess('');
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 

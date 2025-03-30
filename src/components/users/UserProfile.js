@@ -41,8 +41,13 @@ const UserProfile = ({ token, userId, role }) => {
         })
             .then((response) => setUserData(response.data))
             .catch((err) => {
-                setError('Erro ao carregar os dados do usuário');
+                setError('Erro ao carregar os dados do usuário.');
                 console.error(err);
+                if (error.response.status) {
+                    navigate(`/error/${error.response.status}`);
+                } else {
+                    navigate('/error');
+                }
             });
     }, [token, userId, API_URL]);
 
@@ -74,6 +79,11 @@ const UserProfile = ({ token, userId, role }) => {
         } catch (error) {
             setPasswordError('Erro ao alterar a senha.');
             setPasswordSuccess('');
+            if (error.response.status) {
+                navigate(`/error/${error.response.status}`);
+            } else {
+                navigate('/error');
+            }
         }
     };
 
@@ -145,7 +155,6 @@ const UserProfile = ({ token, userId, role }) => {
                                     />
                                 </div>
 
-                                {/* Botões lado a lado */}
                                 <div className={styles.buttonGroup}>
                                     <button type="submit" className="btn">
                                         <FaKey style={{ marginRight: '10px' }} />

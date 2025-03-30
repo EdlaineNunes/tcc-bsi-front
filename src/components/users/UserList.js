@@ -39,12 +39,12 @@ const UserList = ({ token, userName, role, handleLogout }) => {
         setLoading(false);
       })
       .catch(error => {
-        console.error("Erro ao buscar usuários:", error);
+        console.error("Erro ao buscar usuários:", error.response.status);
         setError("Erro ao carregar usuários.");
-        if (error.response) {
-          navigate('/error', { state: { status: error.response.status } });
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
         } else {
-          navigate('/error', { state: { status: 'default' } });
+          navigate('/error');
         }
         setLoading(false);
       });

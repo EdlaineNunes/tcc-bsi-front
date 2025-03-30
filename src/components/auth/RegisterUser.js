@@ -38,12 +38,27 @@ const RegisterUser = ({ token }) => {
         cpf,
         active
       });
+      setError(false)
       setSuccess(true);
       alert("Usuário registrado com sucesso! Você será redirecionado ao login.");
       setTimeout(() => history('/'), 2000);
     } catch (error) {
+      console.info(error.reponse)
       console.error('Erro ao registrar:', error);
-      setError('Erro ao realizar o cadastro.');
+      if (error.response && error.response.status === 409) {
+        const errorMessage = error.response.data?.message || "";
+
+        if (errorMessage.includes("email")) {
+          setError("Este e-mail já está em uso. Tente outro.");
+        } else if (errorMessage.includes("cpf")) {
+          setError("Este CPF já está cadastrado.");
+        } else {
+          setError("Erro ao realizar o cadastro. Verifique os dados e tente novamente.");
+        }
+      } else {
+        setError("Erro ao realizar o cadastro.");
+      }
+
     }
   };
 

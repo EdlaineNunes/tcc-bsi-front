@@ -27,6 +27,11 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
         console.log(response.data);
       } catch (error) {
         console.error('Erro ao buscar documento:', error);
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
+        } else {
+          navigate('/error');
+        }
       }
     };
 
@@ -51,7 +56,11 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
 
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
-      alert('Erro ao baixar o documento.');
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 
@@ -66,7 +75,11 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
         navigate('/documents/listAll');
       } catch (error) {
         console.error('Erro ao excluir documento:', error);
-        alert('Erro ao excluir o documento.');
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
+        } else {
+          navigate('/error');
+        }
       }
     }
   };

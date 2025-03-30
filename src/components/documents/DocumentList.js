@@ -8,7 +8,7 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
   const API_URL = process.env.REACT_APP_BACKEND_URL;
 
   const [documents, setDocuments] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(""); // Estado de pesquisa do nome do documento
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,10 +25,10 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
         setDocuments(response.data);
       } catch (error) {
         console.error("Erro ao buscar documentos:", error);
-        if (error.response) {
-          navigate("/error", { state: { status: error.response.status } });
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
         } else {
-          navigate("/error", { state: { status: "default" } });
+          navigate('/error');
         }
       }
     };
@@ -36,12 +36,10 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
     fetchDocuments();
   }, [token, navigate]);
 
-  // Função de filtro de nome de documento
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  // Filtrar documentos com base no nome do arquivo
   const filteredDocuments = documents.filter(doc =>
     doc.filename.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -64,7 +62,11 @@ const DocumentsList = ({ token, userName, role, handleLogout }) => {
       document.body.removeChild(link);
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
-      alert('Erro ao baixar o documento.');
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 

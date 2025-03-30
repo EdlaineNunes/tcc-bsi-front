@@ -19,14 +19,14 @@ const Header = ({ userName, role, handleLogout }) => {
             <div className={styles.headerContent}>
                 <div className={styles.userDetails}>
                     <FaUserCircle style={{ marginRight: '10px' }} />
-                    <span className={styles.welcome}>Seja bem vindo!</span>
+                    <span className={styles.welcome}>Seja bem vindo(a)!</span>
                     <br />
                     <span className={styles.userName}>{userName}</span>
                     <br />
-                    <span className={styles.userRole}>({role})</span> {/* Exibindo o role */}
+                    <span className={styles.userRole}>({role})</span>
                 </div>
                 <button onClick={handleLogoutClick} className={styles.logoutButton}>
-                    <FaSignOutAlt className={styles.logoutIcon} /> {/* Ícone de logout */}
+                    <FaSignOutAlt className={styles.logoutIcon} />
                 </button>
             </div>
         </div>

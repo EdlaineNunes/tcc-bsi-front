@@ -5,8 +5,8 @@ import Header from "./Header";
 const errorMessages = {
     400: "Requisição inválida. Verifique os dados e tente novamente.",
     401: "Não autorizado. Faça login para acessar esta página.",
-    403: "Acesso negado. Você não tem permissão para visualizar este conteúdo.",
-    404: "Página não encontrada. O recurso solicitado não existe.",
+    403: "Acesso negado. Você não tem permissão para realizar essa ação.",
+    404: "Não encontrado. O recurso solicitado não existe.",
     422: "Erro ao processar solicitação. Tente novamente.",
     500: "Erro interno do servidor. Tente novamente mais tarde.",
     default: "Erro na solicitação. Tente novamente.",

@@ -21,6 +21,11 @@ const DocumentShare = ({ token }) => {
       navigate('/documents');
     } catch (error) {
       console.error('Erro ao compartilhar documento:', error);
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 

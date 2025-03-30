@@ -28,18 +28,21 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
         setDocuments(response.data);
       } catch (error) {
         console.error('Erro ao buscar documentos:', error);
+        if (error.response.status) {
+          navigate(`/error/${error.response.status}`);
+        } else {
+          navigate('/error');
+        }
       }
     };
 
     fetchDocuments();
   }, [token]);
 
-  // Função de filtro de nome de documento
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  // Filtrar documentos com base no nome do arquivo
   const filteredDocuments = documents.filter(doc =>
     doc.filename.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -62,7 +65,11 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
       document.body.removeChild(link);
     } catch (error) {
       console.error('Erro ao baixar documento:', error);
-      alert('Erro ao baixar o documento.');
+      if (error.response.status) {
+        navigate(`/error/${error.response.status}`);
+      } else {
+        navigate('/error');
+      }
     }
   };
 

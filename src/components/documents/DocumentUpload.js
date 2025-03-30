@@ -49,8 +49,7 @@ const DocumentUpload = ({ token, userName, role, handleLogout }) => {
       if (error.response && error.response.status === 422) {
         alert('O documento precisa possuir uma extensão válida.\nEx: jpg, jpeg, png, pdf, xls, xlsx, doc, docx, csv ');
       } else {
-        alert('Erro ao enviar o documento.');
-        navigate('/menu');
+        navigate(`/error/${error.response.status}`);
       }
     }
   };
@@ -61,6 +60,7 @@ const DocumentUpload = ({ token, userName, role, handleLogout }) => {
       <div className={styles["upload-container"]}>
         <div className={styles["upload-card"]}>
           <h2>Upload de Documento</h2>
+          <p>Extensões aceitas: jpg, jpeg, png, pdf, xls, xlsx, doc, docx, csv.</p>
           <form onSubmit={handleUpload}>
             <input type="file" onChange={handleFileChange} />
             <div className={styles["button-group"]}>
