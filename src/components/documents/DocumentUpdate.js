@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import styles from '../styles/DocumentUpload.module.css';
 import Header from '../common/Header'
+import { FaSave, FaUpload } from 'react-icons/fa';
+import { FaX } from 'react-icons/fa6';
 
 const DocumentUpload = ({ token, userName, role, handleLogout }) => {
   const API_URL = process.env.REACT_APP_BACKEND_URL;
@@ -60,17 +62,24 @@ const DocumentUpload = ({ token, userName, role, handleLogout }) => {
       <Header userName={userName} role={role} handleLogout={handleLogout} />
       <div className={styles["upload-container"]}>
         <div className={styles["upload-card"]}>
-          <h2>Update de Documento</h2>
+          <h2><FaUpload style={{ marginRight: '10px' }} />Update de Documento</h2>
           <p>Extensões aceitas: jpg, jpeg, png, pdf, xls, xlsx, doc, docx, csv.</p>
           <form onSubmit={handleUpload}>
             <input type="file" onChange={handleFileChange} />
             <div className={styles["button-group"]}>
-              <button type="submit" className={`btn ${styles["btn-upload"]}`}>Enviar</button>
+              <button
+                type="submit"
+                className={`btn ${styles["btn-upload"]}`}
+              >
+                <FaSave style={{ marginRight: '10px' }} />
+                Salvar
+              </button>
               <button
                 type="button"
                 onClick={() => navigate('/menu')}
                 className={`btn ${styles["btn-menu"]}`}
               >
+                <FaX style={{ marginRight: '10px' }} />
                 Cancelar
               </button>
             </div>
