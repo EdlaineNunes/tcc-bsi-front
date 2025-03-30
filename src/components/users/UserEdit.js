@@ -126,8 +126,8 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
 
     try {
       const response = await axios.put(
-        `${API_URL}/users/${id}/change-password`,
-        { password },
+        `${API_URL}/users/password/${id}?password=${password}`,
+        {},
         {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -138,11 +138,17 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
       if (response.status === 200) {
         setPasswordSuccess('Senha alterada com sucesso!');
         setPasswordError('');
+        setPassword('')
+        setConfirmPassword('')
+        alert("Sucesso ao alterar a senha!")
+        setPasswordSuccess('');
         setShowPasswordForm(false);
       }
     } catch (error) {
       setPasswordError('Erro ao alterar a senha.');
       setPasswordSuccess('');
+      setPassword('')
+      setConfirmPassword('')
       if (error.response.status) {
         navigate(`/error/${error.response.status}`);
       } else {
@@ -238,8 +244,8 @@ const UserEdit = ({ token, userName, role, handleLogout }) => {
           {showPasswordForm && (
             <div className={styles.changePasswordForm}>
               <h3><FaKey style={{ marginRight: '10px' }} /> Alterar Senha</h3>
-              {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
-              {passwordSuccess && <div className={styles.successMessage}>{passwordSuccess}</div>}
+              {passwordError && <div className={`${styles.message} ${styles.error}`}>{passwordError}</div>}
+              {passwordSuccess && <div className={`${styles.message} ${styles.success}`}>{passwordSuccess}</div>}
               <form onSubmit={handleChangePassword}>
                 <div className={styles.formGroup}>
                   <label htmlFor="password">Nova Senha</label>

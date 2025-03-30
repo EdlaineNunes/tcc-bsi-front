@@ -37,7 +37,7 @@ const DocumentsListForMe = ({ token, userName, role, handleLogout }) => {
     };
 
     fetchDocuments();
-  }, [token]);
+  }, [token, navigate, API_URL]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);

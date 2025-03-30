@@ -49,12 +49,11 @@ const UserProfile = ({ token, userId, role }) => {
                     navigate('/error');
                 }
             });
-    }, [token, userId, API_URL]);
+    }, [token, userId, API_URL, navigate]);
 
     const handleChangePassword = async (e) => {
         e.preventDefault();
 
-        // Verifica se as senhas são iguais
         if (password !== confirmPassword) {
             setPasswordError('As senhas não coincidem.');
             setPasswordSuccess('');
@@ -63,8 +62,8 @@ const UserProfile = ({ token, userId, role }) => {
 
         try {
             const response = await axios.put(
-                `${API_URL}/users/${userId}`,
-                password,
+                `${API_URL}/users/password/${userId}?password=${password}`,
+                {},
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -74,11 +73,17 @@ const UserProfile = ({ token, userId, role }) => {
             if (response.status === 200) {
                 setPasswordSuccess('Senha alterada com sucesso!');
                 setPasswordError('');
-                setShowChangePasswordForm(false);  // Fecha o formulário após sucesso
+                setPassword('')
+                setConfirmPassword('')
+                alert("Sucesso ao alterar a senha!")
+                setPasswordSuccess('');
+                setShowChangePasswordForm(false);
             }
         } catch (error) {
             setPasswordError('Erro ao alterar a senha.');
             setPasswordSuccess('');
+            setPassword('')
+            setConfirmPassword('')
             if (error.response.status) {
                 navigate(`/error/${error.response.status}`);
             } else {
@@ -130,8 +135,8 @@ const UserProfile = ({ token, userId, role }) => {
                                 <FaKey style={{ marginRight: '10px' }} />
                                 Alterar Senha
                             </h2>
-                            {passwordError && <div className={styles.errorMessage}>{passwordError}</div>}
-                            {passwordSuccess && <div className={styles.successMessage}>{passwordSuccess}</div>}
+                            {passwordError && <div className={`${styles.message} ${styles.error}`}>{passwordError}</div>}
+                            {passwordSuccess && <div className={`${styles.message} ${styles.success}`}>{passwordSuccess}</div>}
                             <form onSubmit={handleChangePassword}>
                                 <div className={styles.formGroup}>
                                     <label htmlFor="password">Nova Senha</label>

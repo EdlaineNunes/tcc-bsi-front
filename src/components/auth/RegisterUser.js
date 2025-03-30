@@ -10,7 +10,7 @@ const RegisterUser = ({ token }) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');  // Novo estado para a confirmação de senha
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [role, setRole] = useState('');
   const [cpf, setCpf] = useState('');
   const [active, setActive] = useState('');
@@ -22,7 +22,6 @@ const RegisterUser = ({ token }) => {
     e.preventDefault();
     const API_URL = process.env.REACT_APP_BACKEND_URL;
 
-    // Verifica se as senhas são iguais
     if (password !== confirmPassword) {
       setError('As senhas não coincidem.');
       setSuccess(false);

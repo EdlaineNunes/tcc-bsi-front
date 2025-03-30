@@ -36,7 +36,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
     };
 
     fetchDocument();
-  }, [id, token]);
+  }, [id, token, navigate, API_URL]);
 
   const handleDownload = async (documentId, versionIndex, fileName) => {
     console.log("filename --> ", fileName);
@@ -68,7 +68,7 @@ const DocumentView = ({ token, userName, role, handleLogout }) => {
     const confirmDelete = window.confirm("Tem certeza que deseja excluir este documento permanentemente? A exclusão é irreversível.");
     if (confirmDelete) {
       try {
-        const response = await axios.delete(`${API_URL}/files/delete/${documentId}`, {
+        await axios.delete(`${API_URL}/files/delete/${documentId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('Documento excluído com sucesso!');
